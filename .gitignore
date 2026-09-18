@@ -1,0 +1,18 @@
+# Python / Blender
+__pycache__/
+*.py[cod]
+*.blend1
+*.blend2
+
+# 打包中间产物（dist/*.zip 是故意提交的安装包，见 README）
+dist/bilingual_add_search/
+
+# 本地临时文件
+.tmp/
+probe/
+*.log
+
+# 系统杂项
+Thumbs.db
+desktop.ini
+.DS_Store

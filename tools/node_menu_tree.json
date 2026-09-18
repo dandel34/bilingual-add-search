@@ -1,0 +1,3194 @@
+{
+ "ShaderNodeTree": {
+  "Input": {
+   "class": "NODE_MT_shader_node_input_base",
+   "bl_label": "Input",
+   "menu_path": null,
+   "items": [
+    [
+     "ShaderNodeAmbientOcclusion",
+     null
+    ],
+    [
+     "ShaderNodeAttribute",
+     null
+    ],
+    [
+     "ShaderNodeBevel",
+     null
+    ],
+    [
+     "ShaderNodeVertexColor",
+     null
+    ],
+    [
+     "ShaderNodeFresnel",
+     null
+    ],
+    [
+     "ShaderNodeLayerWeight",
+     null
+    ],
+    [
+     "ShaderNodeRaycast",
+     null
+    ],
+    [
+     "ShaderNodeTangent",
+     null
+    ],
+    [
+     "ShaderNodeUVAlongStroke",
+     null
+    ],
+    [
+     "ShaderNodeUVMap",
+     null
+    ],
+    [
+     "ShaderNodeWireframe",
+     null
+    ]
+   ]
+  },
+  "Input/Constant": {
+   "class": "NODE_MT_shader_node_input_constant_base",
+   "bl_label": "Constant",
+   "menu_path": "Input/Constant",
+   "items": [
+    [
+     "FunctionNodeInputBool",
+     null
+    ],
+    [
+     "ShaderNodeRGB",
+     null
+    ],
+    [
+     "FunctionNodeInputInt",
+     null
+    ],
+    [
+     "FunctionNodeInputMenu",
+     null
+    ],
+    [
+     "ShaderNodeValue",
+     null
+    ],
+    [
+     "FunctionNodeInputVector",
+     null
+    ]
+   ]
+  },
+  "Output": {
+   "class": "NODE_MT_shader_node_output_base",
+   "bl_label": "Output",
+   "menu_path": null,
+   "items": [
+    [
+     "ShaderNodeOutputAOV",
+     null
+    ],
+    [
+     "ShaderNodeOutputLight",
+     null
+    ],
+    [
+     "ShaderNodeOutputLineStyle",
+     null
+    ],
+    [
+     "ShaderNodeOutputMaterial",
+     null
+    ],
+    [
+     "ShaderNodeOutputWorld",
+     null
+    ]
+   ]
+  },
+  "Shader": {
+   "class": "NODE_MT_shader_node_shader_base",
+   "bl_label": "Shader",
+   "menu_path": null,
+   "items": [
+    [
+     "ShaderNodeAddShader",
+     null
+    ],
+    [
+     "ShaderNodeMixShader",
+     null
+    ],
+    [
+     "ShaderNodeBackground",
+     null
+    ],
+    [
+     "ShaderNodeBsdfDiffuse",
+     null
+    ],
+    [
+     "ShaderNodeEmission",
+     null
+    ],
+    [
+     "ShaderNodeBsdfGlass",
+     null
+    ],
+    [
+     "ShaderNodeBsdfGlossy",
+     null
+    ],
+    [
+     "ShaderNodeBsdfHair",
+     null
+    ],
+    [
+     "ShaderNodeHoldout",
+     null
+    ],
+    [
+     "ShaderNodeBsdfMetallic",
+     null
+    ],
+    [
+     "ShaderNodeBsdfPrincipled",
+     null
+    ],
+    [
+     "ShaderNodeBsdfHairPrincipled",
+     null
+    ],
+    [
+     "ShaderNodeBsdfRayPortal",
+     null
+    ],
+    [
+     "ShaderNodeBsdfRefraction",
+     null
+    ],
+    [
+     "ShaderNodeBsdfSheen",
+     null
+    ],
+    [
+     "ShaderNodeEeveeSpecular",
+     null
+    ],
+    [
+     "ShaderNodeSubsurfaceScattering",
+     null
+    ],
+    [
+     "ShaderNodeBsdfToon",
+     null
+    ],
+    [
+     "ShaderNodeBsdfTranslucent",
+     null
+    ],
+    [
+     "ShaderNodeBsdfTransparent",
+     null
+    ],
+    [
+     "ShaderNodeVolumePrincipled",
+     null
+    ],
+    [
+     "ShaderNodeVolumeAbsorption",
+     null
+    ],
+    [
+     "ShaderNodeVolumeScatter",
+     null
+    ],
+    [
+     "ShaderNodeVolumeCoefficients",
+     null
+    ]
+   ]
+  },
+  "Color": {
+   "class": "NODE_MT_shader_node_color_base",
+   "bl_label": "Color",
+   "menu_path": null,
+   "items": [
+    [
+     "ShaderNodeBlackbody",
+     null
+    ],
+    [
+     "ShaderNodeBrightContrast",
+     null
+    ],
+    [
+     "ShaderNodeValToRGB",
+     null
+    ],
+    [
+     "ShaderNodeGamma",
+     null
+    ],
+    [
+     "ShaderNodeHueSaturation",
+     null
+    ],
+    [
+     "ShaderNodeInvert",
+     null
+    ],
+    [
+     "ShaderNodeLightFalloff",
+     null
+    ],
+    [
+     "ShaderNodeRGBCurve",
+     null
+    ],
+    [
+     "ShaderNodeWavelength",
+     null
+    ],
+    [
+     "ShaderNodeCombineColor",
+     null
+    ],
+    [
+     "ShaderNodeSeparateColor",
+     null
+    ],
+    [
+     "ShaderNodeRGBToBW",
+     null
+    ],
+    [
+     "ShaderNodeShaderToRGB",
+     null
+    ]
+   ]
+  },
+  "Texture": {
+   "class": "NODE_MT_shader_node_texture_base",
+   "bl_label": "Texture",
+   "menu_path": null,
+   "items": [
+    [
+     "ShaderNodeTexBrick",
+     null
+    ],
+    [
+     "ShaderNodeTexChecker",
+     null
+    ],
+    [
+     "ShaderNodeTexEnvironment",
+     null
+    ],
+    [
+     "ShaderNodeTexGabor",
+     null
+    ],
+    [
+     "ShaderNodeTexGradient",
+     null
+    ],
+    [
+     "ShaderNodeTexIES",
+     null
+    ],
+    [
+     "ShaderNodeTexImage",
+     null
+    ],
+    [
+     "ShaderNodeTexMagic",
+     null
+    ],
+    [
+     "ShaderNodeTexNoise",
+     null
+    ],
+    [
+     "ShaderNodeTexSky",
+     null
+    ],
+    [
+     "ShaderNodeTexVoronoi",
+     null
+    ],
+    [
+     "ShaderNodeTexWave",
+     null
+    ],
+    [
+     "ShaderNodeTexWhiteNoise",
+     null
+    ]
+   ]
+  },
+  "Utilities/Vector": {
+   "class": "NODE_MT_shader_node_vector_base",
+   "bl_label": "Vector",
+   "menu_path": "Utilities/Vector",
+   "items": [
+    [
+     "ShaderNodeCombineXYZ",
+     null
+    ],
+    [
+     "ShaderNodeMapRange",
+     null
+    ],
+    [
+     "ShaderNodeMix",
+     "Mix Vector"
+    ],
+    [
+     "ShaderNodeSeparateXYZ",
+     null
+    ],
+    [
+     "ShaderNodeMapping",
+     null
+    ],
+    [
+     "ShaderNodeNormal",
+     null
+    ],
+    [
+     "ShaderNodeRadialTiling",
+     null
+    ],
+    [
+     "ShaderNodeVectorCurve",
+     null
+    ],
+    [
+     "ShaderNodeVectorMath",
+     null
+    ],
+    [
+     "ShaderNodeVectorRotate",
+     null
+    ],
+    [
+     "ShaderNodeVectorTransform",
+     null
+    ]
+   ]
+  },
+  "Utilities/Math": {
+   "class": "NODE_MT_shader_node_math_base",
+   "bl_label": "Math",
+   "menu_path": "Utilities/Math",
+   "items": [
+    [
+     "ShaderNodeClamp",
+     null
+    ],
+    [
+     "ShaderNodeFloatCurve",
+     null
+    ],
+    [
+     "ShaderNodeMapRange",
+     null
+    ],
+    [
+     "ShaderNodeMath",
+     null
+    ],
+    [
+     "ShaderNodeMix",
+     null
+    ]
+   ]
+  },
+  "Displacement": {
+   "class": "NODE_MT_shader_node_displacement_base",
+   "bl_label": "Displacement",
+   "menu_path": null,
+   "items": [
+    [
+     "ShaderNodeBump",
+     null
+    ],
+    [
+     "ShaderNodeDisplacement",
+     null
+    ],
+    [
+     "ShaderNodeNormalMap",
+     null
+    ],
+    [
+     "ShaderNodeVectorDisplacement",
+     null
+    ]
+   ]
+  },
+  "Utilities": {
+   "class": "NODE_MT_shader_node_utilities_base",
+   "bl_label": "Utilities",
+   "menu_path": null,
+   "items": [
+    [
+     "NodeImplicitConversion",
+     null
+    ],
+    [
+     "NodeEvaluateClosure",
+     null
+    ],
+    [
+     "NodeCombineBundle",
+     null
+    ],
+    [
+     "NodeSeparateBundle",
+     null
+    ],
+    [
+     "NodeJoinBundle",
+     null
+    ],
+    [
+     "GeometryNodeMenuSwitch",
+     null
+    ],
+    [
+     "ShaderNodeScript",
+     null
+    ]
+   ]
+  }
+ },
+ "GeometryNodeTree": {
+  "Attribute": {
+   "class": "NODE_MT_gn_attribute_base",
+   "bl_label": "Attribute",
+   "menu_path": null,
+   "items": [
+    [
+     "GeometryNodeAttributeStatistic",
+     null
+    ],
+    [
+     "GeometryNodeAttributeDomainSize",
+     null
+    ],
+    [
+     "GeometryNodeGetAttributeNames",
+     null
+    ],
+    [
+     "GeometryNodeBlurAttribute",
+     null
+    ],
+    [
+     "GeometryNodeCaptureAttribute",
+     null
+    ],
+    [
+     "GeometryNodeRemoveAttribute",
+     null
+    ],
+    [
+     "GeometryNodeRenameAttribute",
+     null
+    ],
+    [
+     "GeometryNodeStoreNamedAttribute",
+     null
+    ],
+    [
+     "GeometryNodeTransferAttributes",
+     null
+    ]
+   ]
+  },
+  "Color": {
+   "class": "NODE_MT_gn_color_base",
+   "bl_label": "Color",
+   "menu_path": null,
+   "items": [
+    [
+     "ShaderNodeBlackbody",
+     null
+    ],
+    [
+     "ShaderNodeGamma",
+     null
+    ],
+    [
+     "ShaderNodeValToRGB",
+     null
+    ],
+    [
+     "ShaderNodeRGBCurve",
+     null
+    ],
+    [
+     "FunctionNodeCombineColor",
+     null
+    ],
+    [
+     "FunctionNodeSeparateColor",
+     null
+    ]
+   ]
+  },
+  "Curve/Read": {
+   "class": "NODE_MT_gn_curve_read_base",
+   "bl_label": "Read",
+   "menu_path": "Curve/Read",
+   "items": [
+    [
+     "GeometryNodeInputCurveHandlePositions",
+     null
+    ],
+    [
+     "GeometryNodeCurveLength",
+     null
+    ],
+    [
+     "GeometryNodeInputTangent",
+     null
+    ],
+    [
+     "GeometryNodeInputCurveTilt",
+     null
+    ],
+    [
+     "GeometryNodeCurveEndpointSelection",
+     null
+    ],
+    [
+     "GeometryNodeCurveHandleTypeSelection",
+     null
+    ],
+    [
+     "GeometryNodeInputSplineCyclic",
+     null
+    ],
+    [
+     "GeometryNodeSplineLength",
+     null
+    ],
+    [
+     "GeometryNodeSplineParameter",
+     null
+    ],
+    [
+     "GeometryNodeInputSplineResolution",
+     null
+    ]
+   ]
+  },
+  "Curve/Sample": {
+   "class": "NODE_MT_gn_curve_sample_base",
+   "bl_label": "Sample",
+   "menu_path": "Curve/Sample",
+   "items": [
+    [
+     "GeometryNodeSampleCurve",
+     null
+    ]
+   ]
+  },
+  "Curve/Write": {
+   "class": "NODE_MT_gn_curve_write_base",
+   "bl_label": "Write",
+   "menu_path": "Curve/Write",
+   "items": [
+    [
+     "GeometryNodeSetCurveNormal",
+     null
+    ],
+    [
+     "GeometryNodeSetCurveRadius",
+     null
+    ],
+    [
+     "GeometryNodeSetCurveTilt",
+     null
+    ],
+    [
+     "GeometryNodeSetCurveHandlePositions",
+     null
+    ],
+    [
+     "GeometryNodeCurveSetHandles",
+     null
+    ],
+    [
+     "GeometryNodeSetNURBSOrder",
+     null
+    ],
+    [
+     "GeometryNodeSetNURBSWeight",
+     null
+    ],
+    [
+     "GeometryNodeSetSplineCyclic",
+     null
+    ],
+    [
+     "GeometryNodeSetSplineResolution",
+     null
+    ],
+    [
+     "GeometryNodeCurveSplineType",
+     null
+    ]
+   ]
+  },
+  "Curve/Operations": {
+   "class": "NODE_MT_gn_curve_operations_base",
+   "bl_label": "Operations",
+   "menu_path": "Curve/Operations",
+   "items": [
+    [
+     "GeometryNodeCurveToMesh",
+     null
+    ],
+    [
+     "GeometryNodeCurveToPoints",
+     null
+    ],
+    [
+     "GeometryNodeCurvesToGreasePencil",
+     null
+    ],
+    [
+     "GeometryNodeDeformCurvesOnSurface",
+     null
+    ],
+    [
+     "GeometryNodeFillCurve",
+     null
+    ],
+    [
+     "GeometryNodeFilletCurve",
+     null
+    ],
+    [
+     "GeometryNodeInterpolateCurves",
+     null
+    ],
+    [
+     "GeometryNodeResampleCurve",
+     null
+    ],
+    [
+     "GeometryNodeReverseCurve",
+     null
+    ],
+    [
+     "GeometryNodeSubdivideCurve",
+     null
+    ],
+    [
+     "GeometryNodeTrimCurve",
+     null
+    ]
+   ]
+  },
+  "Curve/Primitives": {
+   "class": "NODE_MT_gn_curve_primitives_base",
+   "bl_label": "Primitives",
+   "menu_path": "Curve/Primitives",
+   "items": [
+    [
+     "GeometryNodeCurveArc",
+     null
+    ],
+    [
+     "GeometryNodeCurvePrimitiveBezierSegment",
+     null
+    ],
+    [
+     "GeometryNodeCurvePrimitiveCircle",
+     null
+    ],
+    [
+     "GeometryNodeCurvePrimitiveLine",
+     null
+    ],
+    [
+     "GeometryNodeCurveSpiral",
+     null
+    ],
+    [
+     "GeometryNodeCurveQuadraticBezier",
+     null
+    ],
+    [
+     "GeometryNodeCurvePrimitiveQuadrilateral",
+     null
+    ],
+    [
+     "GeometryNodeCurveStar",
+     null
+    ]
+   ]
+  },
+  "Curve/Topology": {
+   "class": "NODE_MT_gn_curve_topology_base",
+   "bl_label": "Topology",
+   "menu_path": "Curve/Topology",
+   "items": [
+    [
+     "GeometryNodeCurveOfPoint",
+     null
+    ],
+    [
+     "GeometryNodeOffsetPointInCurve",
+     null
+    ],
+    [
+     "GeometryNodePointsOfCurve",
+     null
+    ]
+   ]
+  },
+  "Grease Pencil/Read": {
+   "class": "NODE_MT_gn_grease_pencil_read_base",
+   "bl_label": "Read",
+   "menu_path": "Grease Pencil/Read",
+   "items": [
+    [
+     "GeometryNodeInputNamedLayerSelection",
+     null
+    ]
+   ]
+  },
+  "Grease Pencil/Write": {
+   "class": "NODE_MT_gn_grease_pencil_write_base",
+   "bl_label": "Write",
+   "menu_path": "Grease Pencil/Write",
+   "items": [
+    [
+     "GeometryNodeSetGreasePencilColor",
+     null
+    ],
+    [
+     "GeometryNodeSetGreasePencilDepth",
+     null
+    ],
+    [
+     "GeometryNodeSetGreasePencilSoftness",
+     null
+    ]
+   ]
+  },
+  "Grease Pencil/Operations": {
+   "class": "NODE_MT_gn_grease_pencil_operations_base",
+   "bl_label": "Operations",
+   "menu_path": "Grease Pencil/Operations",
+   "items": [
+    [
+     "GeometryNodeGreasePencilToCurves",
+     null
+    ],
+    [
+     "GeometryNodeMergeLayers",
+     null
+    ]
+   ]
+  },
+  "Geometry": {
+   "class": "NODE_MT_gn_geometry_base",
+   "bl_label": "Geometry",
+   "menu_path": null,
+   "items": [
+    [
+     "GeometryNodeGeometryToInstance",
+     null
+    ],
+    [
+     "GeometryNodeJoinGeometry",
+     null
+    ]
+   ]
+  },
+  "Geometry/Read": {
+   "class": "NODE_MT_gn_geometry_read_base",
+   "bl_label": "Read",
+   "menu_path": "Geometry/Read",
+   "items": [
+    [
+     "GeometryNodeInputID",
+     null
+    ],
+    [
+     "GeometryNodeInputIndex",
+     null
+    ],
+    [
+     "GeometryNodeInputNamedAttribute",
+     null
+    ],
+    [
+     "GeometryNodeInputNormal",
+     null
+    ],
+    [
+     "GeometryNodeInputPosition",
+     null
+    ],
+    [
+     "GeometryNodeInputRadius",
+     null
+    ],
+    [
+     "GeometryNodeGetGeometryBundle",
+     null
+    ],
+    [
+     "GeometryNodeToolSelection",
+     null
+    ],
+    [
+     "GeometryNodeToolActiveElement",
+     null
+    ]
+   ]
+  },
+  "Geometry/Write": {
+   "class": "NODE_MT_gn_geometry_write_base",
+   "bl_label": "Write",
+   "menu_path": "Geometry/Write",
+   "items": [
+    [
+     "GeometryNodeSetGeometryBundle",
+     null
+    ],
+    [
+     "GeometryNodeSetGeometryName",
+     null
+    ],
+    [
+     "GeometryNodeSetID",
+     null
+    ],
+    [
+     "GeometryNodeSetPosition",
+     null
+    ],
+    [
+     "GeometryNodeToolSetSelection",
+     null
+    ]
+   ]
+  },
+  "Geometry/Operations": {
+   "class": "NODE_MT_gn_geometry_operations_base",
+   "bl_label": "Operations",
+   "menu_path": "Geometry/Operations",
+   "items": [
+    [
+     "GeometryNodeBake",
+     null
+    ],
+    [
+     "GeometryNodeBoundBox",
+     null
+    ],
+    [
+     "GeometryNodeConvexHull",
+     null
+    ],
+    [
+     "GeometryNodeDeleteGeometry",
+     null
+    ],
+    [
+     "GeometryNodeDuplicateElements",
+     null
+    ],
+    [
+     "GeometryNodeMergeByDistance",
+     null
+    ],
+    [
+     "GeometryNodeMergePoints",
+     null
+    ],
+    [
+     "GeometryNodeSortElements",
+     null
+    ],
+    [
+     "GeometryNodeTransform",
+     null
+    ],
+    [
+     "GeometryNodeGetGeometryComponent",
+     null
+    ],
+    [
+     "GeometryNodeSeparateComponents",
+     null
+    ],
+    [
+     "GeometryNodeSeparateGeometry",
+     null
+    ],
+    [
+     "GeometryNodeSplitToInstances",
+     null
+    ]
+   ]
+  },
+  "Geometry/Sample": {
+   "class": "NODE_MT_gn_geometry_sample_base",
+   "bl_label": "Sample",
+   "menu_path": "Geometry/Sample",
+   "items": [
+    [
+     "GeometryNodeProximity",
+     null
+    ],
+    [
+     "GeometryNodeIndexOfNearest",
+     null
+    ],
+    [
+     "GeometryNodeRaycast",
+     null
+    ],
+    [
+     "GeometryNodeSampleIndex",
+     null
+    ],
+    [
+     "GeometryNodeSampleNearest",
+     null
+    ]
+   ]
+  },
+  "Input/Constant": {
+   "class": "NODE_MT_gn_input_constant_base",
+   "bl_label": "Constant",
+   "menu_path": "Input/Constant",
+   "items": [
+    [
+     "FunctionNodeInputBool",
+     null
+    ],
+    [
+     "GeometryNodeInputCollection",
+     null
+    ],
+    [
+     "FunctionNodeInputColor",
+     null
+    ],
+    [
+     "GeometryNodeInputFont",
+     null
+    ],
+    [
+     "GeometryNodeInputImage",
+     null
+    ],
+    [
+     "FunctionNodeInputInt",
+     null
+    ],
+    [
+     "GeometryNodeInputMaterial",
+     null
+    ],
+    [
+     "FunctionNodeInputMenu",
+     null
+    ],
+    [
+     "GeometryNodeInputObject",
+     null
+    ],
+    [
+     "FunctionNodeInputRotation",
+     null
+    ],
+    [
+     "FunctionNodeInputString",
+     null
+    ],
+    [
+     "ShaderNodeValue",
+     null
+    ],
+    [
+     "FunctionNodeInputVector",
+     null
+    ]
+   ]
+  },
+  "Input/Group": {
+   "class": "NODE_MT_gn_input_group_base",
+   "bl_label": "Group",
+   "menu_path": "Input/Group",
+   "items": [
+    [
+     "NodeGroupInput",
+     null
+    ]
+   ]
+  },
+  "Input/Scene": {
+   "class": "NODE_MT_gn_input_scene_base",
+   "bl_label": "Scene",
+   "menu_path": "Input/Scene",
+   "items": [
+    [
+     "GeometryNodeInputActiveCamera",
+     null
+    ],
+    [
+     "GeometryNodeBoneInfo",
+     null
+    ],
+    [
+     "GeometryNodeCollectionChildren",
+     null
+    ],
+    [
+     "GeometryNodeCollectionInfo",
+     null
+    ],
+    [
+     "GeometryNodeImageInfo",
+     null
+    ],
+    [
+     "GeometryNodeIsViewport",
+     null
+    ],
+    [
+     "GeometryNodeObjectInfo",
+     null
+    ],
+    [
+     "GeometryNodeSelfObject",
+     null
+    ],
+    [
+     "GeometryNodeTool3DCursor",
+     null
+    ]
+   ]
+  },
+  "Input/Gizmo": {
+   "class": "NODE_MT_gn_input_gizmo_base",
+   "bl_label": "Gizmo",
+   "menu_path": "Input/Gizmo",
+   "items": [
+    [
+     "GeometryNodeGizmoDial",
+     null
+    ],
+    [
+     "GeometryNodeGizmoLinear",
+     null
+    ],
+    [
+     "GeometryNodeGizmoTransform",
+     null
+    ]
+   ]
+  },
+  "Instances": {
+   "class": "NODE_MT_gn_instance_base",
+   "bl_label": "Instances",
+   "menu_path": null,
+   "items": [
+    [
+     "GeometryNodeInstanceOnPoints",
+     null
+    ],
+    [
+     "GeometryNodeInstancesToPoints",
+     null
+    ],
+    [
+     "GeometryNodeRealizeInstances",
+     null
+    ],
+    [
+     "GeometryNodeRotateInstances",
+     null
+    ],
+    [
+     "GeometryNodeScaleInstances",
+     null
+    ],
+    [
+     "GeometryNodeSetInstanceTransform",
+     null
+    ],
+    [
+     "GeometryNodeTranslateInstances",
+     null
+    ],
+    [
+     "GeometryNodeInputInstanceBounds",
+     null
+    ],
+    [
+     "GeometryNodeInputInstanceReference",
+     null
+    ],
+    [
+     "GeometryNodeInstanceTransform",
+     null
+    ],
+    [
+     "GeometryNodeInputInstanceRotation",
+     null
+    ],
+    [
+     "GeometryNodeInputInstanceScale",
+     null
+    ]
+   ]
+  },
+  "Geometry/Material": {
+   "class": "NODE_MT_gn_material_base",
+   "bl_label": "Material",
+   "menu_path": "Geometry/Material",
+   "items": [
+    [
+     "GeometryNodeReplaceMaterial",
+     null
+    ],
+    [
+     "GeometryNodeInputMaterialIndex",
+     null
+    ],
+    [
+     "GeometryNodeMaterialSelection",
+     null
+    ],
+    [
+     "GeometryNodeSetMaterial",
+     null
+    ],
+    [
+     "GeometryNodeSetMaterialIndex",
+     null
+    ]
+   ]
+  },
+  "Mesh/Read": {
+   "class": "NODE_MT_gn_mesh_read_base",
+   "bl_label": "Read",
+   "menu_path": "Mesh/Read",
+   "items": [
+    [
+     "GeometryNodeClusterByConnected",
+     null
+    ],
+    [
+     "GeometryNodeInputMeshEdgeAngle",
+     null
+    ],
+    [
+     "GeometryNodeInputMeshEdgeNeighbors",
+     null
+    ],
+    [
+     "GeometryNodeInputMeshEdgeVertices",
+     null
+    ],
+    [
+     "GeometryNodeEdgesToFaceGroups",
+     null
+    ],
+    [
+     "GeometryNodeInputMeshFaceArea",
+     null
+    ],
+    [
+     "GeometryNodeMeshFaceSetBoundaries",
+     null
+    ],
+    [
+     "GeometryNodeInputMeshFaceNeighbors",
+     null
+    ],
+    [
+     "GeometryNodeInputMeshFaceIsPlanar",
+     null
+    ],
+    [
+     "GeometryNodeInputShadeSmooth",
+     null
+    ],
+    [
+     "GeometryNodeInputEdgeSmooth",
+     null
+    ],
+    [
+     "GeometryNodeInputMeshIsland",
+     null
+    ],
+    [
+     "GeometryNodeInputShortestEdgePaths",
+     null
+    ],
+    [
+     "GeometryNodeInputMeshVertexNeighbors",
+     null
+    ],
+    [
+     "GeometryNodeToolFaceSet",
+     null
+    ]
+   ]
+  },
+  "Mesh/Sample": {
+   "class": "NODE_MT_gn_mesh_sample_base",
+   "bl_label": "Sample",
+   "menu_path": "Mesh/Sample",
+   "items": [
+    [
+     "GeometryNodeSampleNearestSurface",
+     null
+    ],
+    [
+     "GeometryNodeSampleUVSurface",
+     null
+    ]
+   ]
+  },
+  "Mesh/Write": {
+   "class": "NODE_MT_gn_mesh_write_base",
+   "bl_label": "Write",
+   "menu_path": "Mesh/Write",
+   "items": [
+    [
+     "GeometryNodeSetMeshNormal",
+     null
+    ],
+    [
+     "GeometryNodeSetShadeSmooth",
+     null
+    ],
+    [
+     "GeometryNodeToolSetFaceSet",
+     null
+    ]
+   ]
+  },
+  "Mesh/Operations": {
+   "class": "NODE_MT_gn_mesh_operations_base",
+   "bl_label": "Operations",
+   "menu_path": "Mesh/Operations",
+   "items": [
+    [
+     "GeometryNodeDualMesh",
+     null
+    ],
+    [
+     "GeometryNodeEdgePathsToCurves",
+     null
+    ],
+    [
+     "GeometryNodeEdgePathsToSelection",
+     null
+    ],
+    [
+     "GeometryNodeExtrudeMesh",
+     null
+    ],
+    [
+     "GeometryNodeFlipFaces",
+     null
+    ],
+    [
+     "GeometryNodeMeshBevel",
+     null
+    ],
+    [
+     "GeometryNodeMeshBoolean",
+     null
+    ],
+    [
+     "GeometryNodeMeshToCurve",
+     null
+    ],
+    [
+     "GeometryNodeMeshToDensityGrid",
+     null
+    ],
+    [
+     "GeometryNodeMeshToPoints",
+     null
+    ],
+    [
+     "GeometryNodeMeshToSDFGrid",
+     null
+    ],
+    [
+     "GeometryNodeMeshToVolume",
+     null
+    ],
+    [
+     "GeometryNodeScaleElements",
+     null
+    ],
+    [
+     "GeometryNodeSplitEdges",
+     null
+    ],
+    [
+     "GeometryNodeSubdivideMesh",
+     null
+    ],
+    [
+     "GeometryNodeSubdivisionSurface",
+     null
+    ],
+    [
+     "GeometryNodeTriangulate",
+     null
+    ]
+   ]
+  },
+  "Mesh/Primitives": {
+   "class": "NODE_MT_gn_mesh_primitives_base",
+   "bl_label": "Primitives",
+   "menu_path": "Mesh/Primitives",
+   "items": [
+    [
+     "GeometryNodeMeshCone",
+     null
+    ],
+    [
+     "GeometryNodeMeshCube",
+     null
+    ],
+    [
+     "GeometryNodeMeshCylinder",
+     null
+    ],
+    [
+     "GeometryNodeMeshGrid",
+     null
+    ],
+    [
+     "GeometryNodeMeshIcoSphere",
+     null
+    ],
+    [
+     "GeometryNodeMeshCircle",
+     null
+    ],
+    [
+     "GeometryNodeMeshLine",
+     null
+    ],
+    [
+     "GeometryNodeMeshUVSphere",
+     null
+    ]
+   ]
+  },
+  "Input/Import": {
+   "class": "NODE_MT_gn_input_import_base",
+   "bl_label": "Import",
+   "menu_path": "Input/Import",
+   "items": [
+    [
+     "GeometryNodeImportCSV",
+     "CSV (.csv)"
+    ],
+    [
+     "GeometryNodeImportOBJ",
+     "Wavefront (.obj)"
+    ],
+    [
+     "GeometryNodeImportPLY",
+     "Stanford PLY (.ply)"
+    ],
+    [
+     "GeometryNodeImportSTL",
+     "STL (.stl)"
+    ],
+    [
+     "GeometryNodeImportText",
+     "Text (.txt)"
+    ],
+    [
+     "GeometryNodeImportVDB",
+     "OpenVDB (.vdb)"
+    ]
+   ]
+  },
+  "Mesh/Topology": {
+   "class": "NODE_MT_gn_mesh_topology_base",
+   "bl_label": "Topology",
+   "menu_path": "Mesh/Topology",
+   "items": [
+    [
+     "GeometryNodeCornersOfEdge",
+     null
+    ],
+    [
+     "GeometryNodeCornersOfFace",
+     null
+    ],
+    [
+     "GeometryNodeCornersOfVertex",
+     null
+    ],
+    [
+     "GeometryNodeEdgesOfCorner",
+     null
+    ],
+    [
+     "GeometryNodeEdgesOfVertex",
+     null
+    ],
+    [
+     "GeometryNodeFaceOfCorner",
+     null
+    ],
+    [
+     "GeometryNodeOffsetCornerInFace",
+     null
+    ],
+    [
+     "GeometryNodeVertexOfCorner",
+     null
+    ]
+   ]
+  },
+  "Output": {
+   "class": "NODE_MT_gn_output_base",
+   "bl_label": "Output",
+   "menu_path": null,
+   "items": [
+    [
+     "NodeEnableOutput",
+     null
+    ],
+    [
+     "NodeGroupOutput",
+     null
+    ],
+    [
+     "GeometryNodeViewer",
+     null
+    ],
+    [
+     "GeometryNodeWarning",
+     null
+    ]
+   ]
+  },
+  "Point": {
+   "class": "NODE_MT_gn_point_base",
+   "bl_label": "Point",
+   "menu_path": null,
+   "items": [
+    [
+     "GeometryNodeDistributePointsInGrid",
+     null
+    ],
+    [
+     "GeometryNodeDistributePointsInVolume",
+     null
+    ],
+    [
+     "GeometryNodeDistributePointsOnFaces",
+     null
+    ],
+    [
+     "GeometryNodePoints",
+     null
+    ],
+    [
+     "GeometryNodePointsToCurves",
+     null
+    ],
+    [
+     "GeometryNodePointsToSDFGrid",
+     null
+    ],
+    [
+     "GeometryNodePointsToVertices",
+     null
+    ],
+    [
+     "GeometryNodePointsToVolume",
+     null
+    ],
+    [
+     "GeometryNodeSetPointRadius",
+     null
+    ]
+   ]
+  },
+  "Simulation": {
+   "class": "NODE_MT_gn_simulation_base",
+   "bl_label": "Simulation",
+   "menu_path": null,
+   "items": [
+    [
+     "GeometryNodeXPBDSolver",
+     null
+    ]
+   ]
+  },
+  "Utilities/Text": {
+   "class": "NODE_MT_gn_utilities_text_base",
+   "bl_label": "Text",
+   "menu_path": "Utilities/Text",
+   "items": [
+    [
+     "FunctionNodeFormatString",
+     null
+    ],
+    [
+     "GeometryNodeStringJoin",
+     null
+    ],
+    [
+     "FunctionNodeMatchString",
+     null
+    ],
+    [
+     "FunctionNodeReplaceString",
+     null
+    ],
+    [
+     "FunctionNodeReverseString",
+     null
+    ],
+    [
+     "FunctionNodeSliceString",
+     null
+    ],
+    [
+     "FunctionNodeSetStringCase",
+     null
+    ],
+    [
+     "FunctionNodeSplitString",
+     null
+    ],
+    [
+     "FunctionNodeTrimString",
+     null
+    ],
+    [
+     "FunctionNodeFindInString",
+     null
+    ],
+    [
+     "FunctionNodeStringLength",
+     null
+    ],
+    [
+     "GeometryNodeStringToCurves",
+     null
+    ],
+    [
+     "FunctionNodeStringToValue",
+     null
+    ],
+    [
+     "FunctionNodeValueToString",
+     null
+    ],
+    [
+     "FunctionNodeInputSpecialCharacters",
+     null
+    ],
+    [
+     "GeometryNodeTagFilter",
+     null
+    ]
+   ]
+  },
+  "Utilities/Sound": {
+   "class": "NODE_MT_gn_utilities_sound_base",
+   "bl_label": "Sound",
+   "menu_path": "Utilities/Sound",
+   "items": [
+    [
+     "GeometryNodeSampleSoundFrequencies",
+     null
+    ]
+   ]
+  },
+  "Texture": {
+   "class": "NODE_MT_gn_texture_base",
+   "bl_label": "Texture",
+   "menu_path": null,
+   "items": [
+    [
+     "ShaderNodeTexBrick",
+     null
+    ],
+    [
+     "ShaderNodeTexChecker",
+     null
+    ],
+    [
+     "ShaderNodeTexGabor",
+     null
+    ],
+    [
+     "ShaderNodeTexGradient",
+     null
+    ],
+    [
+     "GeometryNodeImageTexture",
+     null
+    ],
+    [
+     "ShaderNodeTexMagic",
+     null
+    ],
+    [
+     "ShaderNodeTexNoise",
+     null
+    ],
+    [
+     "ShaderNodeTexVoronoi",
+     null
+    ],
+    [
+     "ShaderNodeTexWave",
+     null
+    ],
+    [
+     "ShaderNodeTexWhiteNoise",
+     null
+    ]
+   ]
+  },
+  "Utilities": {
+   "class": "NODE_MT_gn_utilities_base",
+   "bl_label": "Utilities",
+   "menu_path": null,
+   "items": [
+    [
+     "NodeImplicitConversion",
+     null
+    ],
+    [
+     "GeometryNodeIndexSwitch",
+     null
+    ],
+    [
+     "GeometryNodeMenuSwitch",
+     null
+    ],
+    [
+     "FunctionNodeRandomValue",
+     null
+    ],
+    [
+     "GeometryNodeSwitch",
+     null
+    ]
+   ]
+  },
+  "Utilities/Deprecated": {
+   "class": "NODE_MT_gn_utilities_deprecated_base",
+   "bl_label": "Deprecated",
+   "menu_path": "Utilities/Deprecated",
+   "items": [
+    [
+     "FunctionNodeAlignEulerToVector",
+     null
+    ],
+    [
+     "FunctionNodeRotateEuler",
+     null
+    ]
+   ]
+  },
+  "Utilities/Field": {
+   "class": "NODE_MT_gn_utilities_field_base",
+   "bl_label": "Field",
+   "menu_path": "Utilities/Field",
+   "items": [
+    [
+     "GeometryNodeAccumulateField",
+     null
+    ],
+    [
+     "GeometryNodeClusterByDistance",
+     null
+    ],
+    [
+     "GeometryNodeFieldAtIndex",
+     null
+    ],
+    [
+     "GeometryNodeFieldOnDomain",
+     null
+    ],
+    [
+     "GeometryNodeFieldAverage",
+     null
+    ],
+    [
+     "GeometryNodeFieldMinAndMax",
+     null
+    ],
+    [
+     "GeometryNodeFieldVariance",
+     null
+    ]
+   ]
+  },
+  "Utilities/Rotation": {
+   "class": "NODE_MT_gn_utilities_rotation_base",
+   "bl_label": "Rotation",
+   "menu_path": "Utilities/Rotation",
+   "items": [
+    [
+     "FunctionNodeAlignRotationToVector",
+     null
+    ],
+    [
+     "FunctionNodeAxesToRotation",
+     null
+    ],
+    [
+     "FunctionNodeAxisAngleToRotation",
+     null
+    ],
+    [
+     "FunctionNodeEulerToRotation",
+     null
+    ],
+    [
+     "FunctionNodeInvertRotation",
+     null
+    ],
+    [
+     "ShaderNodeMix",
+     "Mix Rotation"
+    ],
+    [
+     "FunctionNodeRotateRotation",
+     null
+    ],
+    [
+     "FunctionNodeRotateVector",
+     null
+    ],
+    [
+     "FunctionNodeRotationToAxisAngle",
+     null
+    ],
+    [
+     "FunctionNodeRotationToEuler",
+     null
+    ],
+    [
+     "FunctionNodeRotationToQuaternion",
+     null
+    ],
+    [
+     "FunctionNodeQuaternionToRotation",
+     null
+    ]
+   ]
+  },
+  "Utilities/Matrix": {
+   "class": "NODE_MT_gn_utilities_matrix_base",
+   "bl_label": "Matrix",
+   "menu_path": "Utilities/Matrix",
+   "items": [
+    [
+     "FunctionNodeCombineMatrix",
+     null
+    ],
+    [
+     "FunctionNodeCombineTransform",
+     null
+    ],
+    [
+     "FunctionNodeMatrixDeterminant",
+     "Determinant"
+    ],
+    [
+     "FunctionNodeInvertMatrix",
+     null
+    ],
+    [
+     "FunctionNodeMatrixMultiply",
+     null
+    ],
+    [
+     "FunctionNodeMatrixSVD",
+     null
+    ],
+    [
+     "FunctionNodeProjectPoint",
+     null
+    ],
+    [
+     "FunctionNodeSeparateMatrix",
+     null
+    ],
+    [
+     "FunctionNodeSeparateTransform",
+     null
+    ],
+    [
+     "FunctionNodeTransformDirection",
+     null
+    ],
+    [
+     "FunctionNodeTransformPoint",
+     null
+    ],
+    [
+     "FunctionNodeTransposeMatrix",
+     null
+    ]
+   ]
+  },
+  "Utilities/Bundle": {
+   "class": "NODE_MT_category_utilities_bundle_base",
+   "bl_label": "Bundle",
+   "menu_path": "Utilities/Bundle",
+   "items": [
+    [
+     "NodeCombineBundle",
+     null
+    ],
+    [
+     "NodeSeparateBundle",
+     null
+    ],
+    [
+     "NodeGetBundleItem",
+     null
+    ],
+    [
+     "NodeGetNestedBundlePaths",
+     null
+    ],
+    [
+     "NodeStoreBundleItem",
+     null
+    ],
+    [
+     "NodeJoinBundle",
+     null
+    ]
+   ]
+  },
+  "Utilities/Closure": {
+   "class": "NODE_MT_category_utilities_closure_base",
+   "bl_label": "Closure",
+   "menu_path": "Utilities/Closure",
+   "items": [
+    [
+     "NodeEvaluateClosure",
+     null
+    ]
+   ]
+  },
+  "Utilities/List": {
+   "class": "NODE_MT_gn_utilities_list_base",
+   "bl_label": "List",
+   "menu_path": "Utilities/List",
+   "items": [
+    [
+     "GeometryNodeClosureToList",
+     null
+    ],
+    [
+     "GeometryNodeFieldToList",
+     null
+    ],
+    [
+     "GeometryNodeFilterList",
+     null
+    ],
+    [
+     "GeometryNodeListGetItem",
+     null
+    ],
+    [
+     "GeometryNodeListLength",
+     null
+    ],
+    [
+     "GeometryNodeSortList",
+     null
+    ]
+   ]
+  },
+  "Utilities/Math": {
+   "class": "NODE_MT_gn_utilities_math_base",
+   "bl_label": "Math",
+   "menu_path": "Utilities/Math",
+   "items": [
+    [
+     "FunctionNodeBitMath",
+     null
+    ],
+    [
+     "FunctionNodeBooleanMath",
+     null
+    ],
+    [
+     "FunctionNodeIntegerMath",
+     null
+    ],
+    [
+     "ShaderNodeClamp",
+     null
+    ],
+    [
+     "FunctionNodeCompare",
+     null
+    ],
+    [
+     "ShaderNodeFloatCurve",
+     null
+    ],
+    [
+     "FunctionNodeFloatToInt",
+     null
+    ],
+    [
+     "FunctionNodeHashValue",
+     null
+    ],
+    [
+     "ShaderNodeMapRange",
+     null
+    ],
+    [
+     "ShaderNodeMath",
+     null
+    ],
+    [
+     "ShaderNodeMix",
+     null
+    ]
+   ]
+  },
+  "Mesh/UV": {
+   "class": "NODE_MT_gn_mesh_uv_base",
+   "bl_label": "UV",
+   "menu_path": "Mesh/UV",
+   "items": [
+    [
+     "GeometryNodeUVPackIslands",
+     null
+    ],
+    [
+     "GeometryNodeUVTangent",
+     null
+    ],
+    [
+     "GeometryNodeUVUnwrap",
+     null
+    ]
+   ]
+  },
+  "Utilities/Vector": {
+   "class": "NODE_MT_gn_utilities_vector_base",
+   "bl_label": "Vector",
+   "menu_path": "Utilities/Vector",
+   "items": [
+    [
+     "ShaderNodeCombineXYZ",
+     null
+    ],
+    [
+     "ShaderNodeMapRange",
+     null
+    ],
+    [
+     "ShaderNodeMix",
+     "Mix Vector"
+    ],
+    [
+     "ShaderNodeSeparateXYZ",
+     null
+    ],
+    [
+     "ShaderNodeRadialTiling",
+     null
+    ],
+    [
+     "ShaderNodeVectorCurve",
+     null
+    ],
+    [
+     "ShaderNodeVectorMath",
+     null
+    ],
+    [
+     "ShaderNodeVectorRotate",
+     null
+    ]
+   ]
+  },
+  "Volume/Read": {
+   "class": "NODE_MT_gn_volume_read_base",
+   "bl_label": "Read",
+   "menu_path": "Volume/Read",
+   "items": [
+    [
+     "GeometryNodeGetNamedGrid",
+     null
+    ],
+    [
+     "GeometryNodeGridInfo",
+     null
+    ],
+    [
+     "GeometryNodeInputVoxelIndex",
+     null
+    ]
+   ]
+  },
+  "Volume/Write": {
+   "class": "NODE_MT_gn_volume_write_base",
+   "bl_label": "Write",
+   "menu_path": "Volume/Write",
+   "items": [
+    [
+     "GeometryNodeSetGridBackground",
+     null
+    ],
+    [
+     "GeometryNodeSetGridTransform",
+     null
+    ],
+    [
+     "GeometryNodeStoreNamedGrid",
+     null
+    ]
+   ]
+  },
+  "Volume/Sample": {
+   "class": "NODE_MT_gn_volume_sample_base",
+   "bl_label": "Sample",
+   "menu_path": "Volume/Sample",
+   "items": [
+    [
+     "GeometryNodeSampleGrid",
+     null
+    ],
+    [
+     "GeometryNodeSampleGridIndex",
+     null
+    ],
+    [
+     "GeometryNodeGridAdvect",
+     null
+    ],
+    [
+     "GeometryNodeGridCurl",
+     null
+    ],
+    [
+     "GeometryNodeGridDivergence",
+     null
+    ],
+    [
+     "GeometryNodeGridGradient",
+     null
+    ],
+    [
+     "GeometryNodeGridLaplacian",
+     null
+    ]
+   ]
+  },
+  "Volume/Operations": {
+   "class": "NODE_MT_gn_volume_operations_base",
+   "bl_label": "Operations",
+   "menu_path": "Volume/Operations",
+   "items": [
+    [
+     "GeometryNodeGridToMesh",
+     null
+    ],
+    [
+     "GeometryNodeGridToPoints",
+     null
+    ],
+    [
+     "GeometryNodeVolumeToMesh",
+     null
+    ],
+    [
+     "GeometryNodeSDFGridBoolean",
+     null
+    ],
+    [
+     "GeometryNodeSDFGridFillet",
+     null
+    ],
+    [
+     "GeometryNodeSDFGridLaplacian",
+     null
+    ],
+    [
+     "GeometryNodeSDFGridMean",
+     null
+    ],
+    [
+     "GeometryNodeSDFGridMeanCurvature",
+     null
+    ],
+    [
+     "GeometryNodeSDFGridMedian",
+     null
+    ],
+    [
+     "GeometryNodeSDFGridOffset",
+     null
+    ],
+    [
+     "GeometryNodeFieldToGrid",
+     null
+    ],
+    [
+     "GeometryNodeGridClip",
+     null
+    ],
+    [
+     "GeometryNodeGridDilateAndErode",
+     null
+    ],
+    [
+     "GeometryNodeGridMean",
+     null
+    ],
+    [
+     "GeometryNodeGridMedian",
+     null
+    ],
+    [
+     "GeometryNodeGridPrune",
+     null
+    ],
+    [
+     "GeometryNodeGridVoxelize",
+     null
+    ]
+   ]
+  },
+  "Volume/Primitives": {
+   "class": "NODE_MT_gn_volume_primitives_base",
+   "bl_label": "Primitives",
+   "menu_path": "Volume/Primitives",
+   "items": [
+    [
+     "GeometryNodeCubeGridTopology",
+     null
+    ],
+    [
+     "GeometryNodeVolumeCube",
+     null
+    ]
+   ]
+  }
+ },
+ "CompositorNodeTree": {
+  "Input": {
+   "class": "NODE_MT_compositor_node_input_base",
+   "bl_label": "Input",
+   "menu_path": null,
+   "items": [
+    [
+     "CompositorNodeBlankImage",
+     null
+    ],
+    [
+     "CompositorNodeBokehImage",
+     null
+    ],
+    [
+     "NodeGroupInput",
+     null
+    ],
+    [
+     "CompositorNodeImage",
+     null
+    ],
+    [
+     "CompositorNodeImageInfo",
+     null
+    ],
+    [
+     "CompositorNodeImageCoordinates",
+     null
+    ],
+    [
+     "CompositorNodeMask",
+     null
+    ],
+    [
+     "CompositorNodeMovieClip",
+     null
+    ],
+    [
+     "CompositorNodeStringToImage",
+     null
+    ],
+    [
+     "CompositorNodeSequencerStripInfo",
+     null
+    ]
+   ]
+  },
+  "Input/Constant": {
+   "class": "NODE_MT_compositor_node_input_constant_base",
+   "bl_label": "Constant",
+   "menu_path": "Input/Constant",
+   "items": [
+    [
+     "FunctionNodeInputBool",
+     null
+    ],
+    [
+     "CompositorNodeRGB",
+     null
+    ],
+    [
+     "GeometryNodeInputFont",
+     null
+    ],
+    [
+     "FunctionNodeInputInt",
+     null
+    ],
+    [
+     "FunctionNodeInputIntVector",
+     null
+    ],
+    [
+     "FunctionNodeInputMenu",
+     null
+    ],
+    [
+     "CompositorNodeNormal",
+     null
+    ],
+    [
+     "GeometryNodeInputObject",
+     null
+    ],
+    [
+     "FunctionNodeInputRotation",
+     null
+    ],
+    [
+     "FunctionNodeInputString",
+     null
+    ],
+    [
+     "ShaderNodeValue",
+     null
+    ],
+    [
+     "FunctionNodeInputVector",
+     null
+    ]
+   ]
+  },
+  "Input/Scene": {
+   "class": "NODE_MT_compositor_node_input_scene_base",
+   "bl_label": "Scene",
+   "menu_path": "Input/Scene",
+   "items": [
+    [
+     "GeometryNodeInputActiveCamera",
+     null
+    ],
+    [
+     "GeometryNodeCameraInfo",
+     null
+    ],
+    [
+     "GeometryNodeObjectInfo",
+     null
+    ],
+    [
+     "CompositorNodeTime",
+     null
+    ],
+    [
+     "CompositorNodeRLayers",
+     null
+    ]
+   ]
+  },
+  "Output": {
+   "class": "NODE_MT_compositor_node_output_base",
+   "bl_label": "Output",
+   "menu_path": null,
+   "items": [
+    [
+     "NodeEnableOutput",
+     null
+    ],
+    [
+     "NodeGroupOutput",
+     null
+    ],
+    [
+     "CompositorNodeViewer",
+     null
+    ],
+    [
+     "GeometryNodeWarning",
+     null
+    ],
+    [
+     "CompositorNodeOutputFile",
+     null
+    ]
+   ]
+  },
+  "Color": {
+   "class": "NODE_MT_compositor_node_color_base",
+   "bl_label": "Color",
+   "menu_path": null,
+   "items": [
+    [
+     "CompositorNodePremulKey",
+     null
+    ],
+    [
+     "CompositorNodeAlphaOver",
+     null
+    ],
+    [
+     "CompositorNodeSetAlpha",
+     null
+    ],
+    [
+     "CompositorNodeCombineColor",
+     null
+    ],
+    [
+     "CompositorNodeSeparateColor",
+     null
+    ],
+    [
+     "CompositorNodeZcombine",
+     null
+    ],
+    [
+     "ShaderNodeBlackbody",
+     null
+    ],
+    [
+     "ShaderNodeValToRGB",
+     null
+    ],
+    [
+     "CompositorNodeConvertColorSpace",
+     null
+    ],
+    [
+     "CompositorNodeConvertToDisplay",
+     null
+    ],
+    [
+     "CompositorNodeInvert",
+     null
+    ],
+    [
+     "CompositorNodeRGBToBW",
+     null
+    ]
+   ]
+  },
+  "Color/Adjust": {
+   "class": "NODE_MT_compositor_node_color_adjust_base",
+   "bl_label": "Adjust",
+   "menu_path": "Color/Adjust",
+   "items": [
+    [
+     "CompositorNodeBrightContrast",
+     null
+    ],
+    [
+     "CompositorNodeColorBalance",
+     null
+    ],
+    [
+     "CompositorNodeColorCorrection",
+     null
+    ],
+    [
+     "CompositorNodeExposure",
+     null
+    ],
+    [
+     "ShaderNodeGamma",
+     null
+    ],
+    [
+     "CompositorNodeHueCorrect",
+     null
+    ],
+    [
+     "CompositorNodeHueSat",
+     null
+    ],
+    [
+     "CompositorNodeCurveRGB",
+     null
+    ],
+    [
+     "CompositorNodeTonemap",
+     null
+    ]
+   ]
+  },
+  "Filter": {
+   "class": "NODE_MT_compositor_node_filter_base",
+   "bl_label": "Filter",
+   "menu_path": null,
+   "items": [
+    [
+     "CompositorNodeAntiAliasing",
+     null
+    ],
+    [
+     "CompositorNodeConvolve",
+     null
+    ],
+    [
+     "CompositorNodeDenoise",
+     null
+    ],
+    [
+     "CompositorNodeDespeckle",
+     null
+    ],
+    [
+     "CompositorNodeDilateErode",
+     null
+    ],
+    [
+     "CompositorNodeMaskToSDF",
+     null
+    ],
+    [
+     "CompositorNodeInpaint",
+     null
+    ],
+    [
+     "CompositorNodeFilter",
+     null
+    ],
+    [
+     "CompositorNodeGlare",
+     null
+    ]
+   ]
+  },
+  "Filter/Blur": {
+   "class": "NODE_MT_compositor_node_filter_blur_base",
+   "bl_label": "Blur",
+   "menu_path": "Filter/Blur",
+   "items": [
+    [
+     "CompositorNodeBilateralblur",
+     null
+    ],
+    [
+     "CompositorNodeBlur",
+     null
+    ],
+    [
+     "CompositorNodeBokehBlur",
+     null
+    ],
+    [
+     "CompositorNodeDefocus",
+     null
+    ],
+    [
+     "CompositorNodeDBlur",
+     null
+    ],
+    [
+     "CompositorNodeVecBlur",
+     null
+    ]
+   ]
+  },
+  "Keying": {
+   "class": "NODE_MT_compositor_node_keying_base",
+   "bl_label": "Keying",
+   "menu_path": null,
+   "items": [
+    [
+     "CompositorNodeChannelMatte",
+     null
+    ],
+    [
+     "CompositorNodeChromaMatte",
+     null
+    ],
+    [
+     "CompositorNodeColorMatte",
+     null
+    ],
+    [
+     "CompositorNodeColorSpill",
+     null
+    ],
+    [
+     "CompositorNodeDiffMatte",
+     null
+    ],
+    [
+     "CompositorNodeDistanceMatte",
+     null
+    ],
+    [
+     "CompositorNodeKeying",
+     null
+    ],
+    [
+     "CompositorNodeKeyingScreen",
+     null
+    ],
+    [
+     "CompositorNodeLumaMatte",
+     null
+    ]
+   ]
+  },
+  "Mask": {
+   "class": "NODE_MT_compositor_node_mask_base",
+   "bl_label": "Mask",
+   "menu_path": null,
+   "items": [
+    [
+     "CompositorNodeCryptomatteV2",
+     null
+    ],
+    [
+     "CompositorNodeCryptomatte",
+     null
+    ],
+    [
+     "CompositorNodeBoxMask",
+     null
+    ],
+    [
+     "CompositorNodeEllipseMask",
+     null
+    ],
+    [
+     "CompositorNodeDoubleEdgeMask",
+     null
+    ],
+    [
+     "CompositorNodeIDMask",
+     null
+    ]
+   ]
+  },
+  "Tracking": {
+   "class": "NODE_MT_compositor_node_tracking_base",
+   "bl_label": "Tracking",
+   "menu_path": null,
+   "items": [
+    [
+     "CompositorNodePlaneTrackDeform",
+     null
+    ],
+    [
+     "CompositorNodeStabilize",
+     null
+    ],
+    [
+     "CompositorNodeTrackPos",
+     null
+    ]
+   ]
+  },
+  "Transform": {
+   "class": "NODE_MT_compositor_node_transform_base",
+   "bl_label": "Transform",
+   "menu_path": null,
+   "items": [
+    [
+     "CompositorNodeRotate",
+     null
+    ],
+    [
+     "CompositorNodeScale",
+     null
+    ],
+    [
+     "CompositorNodeTransform",
+     null
+    ],
+    [
+     "CompositorNodeTranslate",
+     null
+    ],
+    [
+     "CompositorNodeCornerPin",
+     null
+    ],
+    [
+     "CompositorNodeCrop",
+     null
+    ],
+    [
+     "CompositorNodeDisplace",
+     null
+    ],
+    [
+     "CompositorNodeFlip",
+     null
+    ],
+    [
+     "CompositorNodeMapUV",
+     null
+    ],
+    [
+     "CompositorNodeLensdist",
+     null
+    ],
+    [
+     "CompositorNodeMovieDistortion",
+     null
+    ]
+   ]
+  },
+  "Texture": {
+   "class": "NODE_MT_compositor_node_texture_base",
+   "bl_label": "Texture",
+   "menu_path": null,
+   "items": [
+    [
+     "ShaderNodeTexBrick",
+     null
+    ],
+    [
+     "ShaderNodeTexChecker",
+     null
+    ],
+    [
+     "ShaderNodeTexGabor",
+     null
+    ],
+    [
+     "ShaderNodeTexGradient",
+     null
+    ],
+    [
+     "ShaderNodeTexMagic",
+     null
+    ],
+    [
+     "ShaderNodeTexNoise",
+     null
+    ],
+    [
+     "ShaderNodeTexVoronoi",
+     null
+    ],
+    [
+     "ShaderNodeTexWave",
+     null
+    ],
+    [
+     "ShaderNodeTexWhiteNoise",
+     null
+    ]
+   ]
+  },
+  "Utilities": {
+   "class": "NODE_MT_compositor_node_utilities_base",
+   "bl_label": "Utilities",
+   "menu_path": null,
+   "items": [
+    [
+     "CompositorNodeLevels",
+     null
+    ],
+    [
+     "CompositorNodeNormalize",
+     null
+    ],
+    [
+     "NodeImplicitConversion",
+     null
+    ],
+    [
+     "CompositorNodeSplit",
+     null
+    ],
+    [
+     "GeometryNodeSwitch",
+     null
+    ],
+    [
+     "GeometryNodeIndexSwitch",
+     null
+    ],
+    [
+     "GeometryNodeMenuSwitch",
+     null
+    ],
+    [
+     "CompositorNodeSwitchView",
+     "Switch Stereo View"
+    ],
+    [
+     "CompositorNodeRelativeToPixel",
+     null
+    ]
+   ]
+  },
+  "Utilities/Vector": {
+   "class": "NODE_MT_compositor_node_vector_base",
+   "bl_label": "Vector",
+   "menu_path": "Utilities/Vector",
+   "items": [
+    [
+     "ShaderNodeCombineXYZ",
+     null
+    ],
+    [
+     "ShaderNodeMapRange",
+     null
+    ],
+    [
+     "ShaderNodeMix",
+     "Mix Vector"
+    ],
+    [
+     "ShaderNodeSeparateXYZ",
+     null
+    ],
+    [
+     "ShaderNodeRadialTiling",
+     null
+    ],
+    [
+     "ShaderNodeVectorCurve",
+     null
+    ],
+    [
+     "ShaderNodeVectorMath",
+     null
+    ],
+    [
+     "ShaderNodeVectorRotate",
+     null
+    ]
+   ]
+  },
+  "Utilities/Math": {
+   "class": "NODE_MT_compositor_node_math_base",
+   "bl_label": "Math",
+   "menu_path": "Utilities/Math",
+   "items": [
+    [
+     "ShaderNodeClamp",
+     null
+    ],
+    [
+     "ShaderNodeFloatCurve",
+     null
+    ],
+    [
+     "ShaderNodeMapRange",
+     null
+    ],
+    [
+     "ShaderNodeMath",
+     null
+    ],
+    [
+     "ShaderNodeMix",
+     null
+    ]
+   ]
+  },
+  "Utilities/Text": {
+   "class": "NODE_MT_compositor_node_text_base",
+   "bl_label": "Text",
+   "menu_path": "Utilities/Text",
+   "items": [
+    [
+     "FunctionNodeFormatString",
+     null
+    ],
+    [
+     "FunctionNodeMatchString",
+     null
+    ],
+    [
+     "FunctionNodeReplaceString",
+     null
+    ],
+    [
+     "FunctionNodeReverseString",
+     null
+    ],
+    [
+     "FunctionNodeSetStringCase",
+     null
+    ],
+    [
+     "FunctionNodeSliceString",
+     null
+    ],
+    [
+     "FunctionNodeTrimString",
+     null
+    ],
+    [
+     "FunctionNodeFindInString",
+     null
+    ],
+    [
+     "FunctionNodeStringLength",
+     null
+    ],
+    [
+     "FunctionNodeStringToValue",
+     null
+    ],
+    [
+     "FunctionNodeValueToString",
+     null
+    ],
+    [
+     "FunctionNodeInputSpecialCharacters",
+     null
+    ]
+   ]
+  },
+  "Utilities/Matrix": {
+   "class": "NODE_MT_compositor_utilities_matrix_base",
+   "bl_label": "Matrix",
+   "menu_path": "Utilities/Matrix",
+   "items": [
+    [
+     "FunctionNodeCombineMatrix",
+     null
+    ],
+    [
+     "FunctionNodeMatrixDeterminant",
+     "Determinant"
+    ],
+    [
+     "FunctionNodeInvertMatrix",
+     null
+    ],
+    [
+     "FunctionNodeMatrixMultiply",
+     null
+    ],
+    [
+     "FunctionNodeProjectPoint",
+     null
+    ],
+    [
+     "FunctionNodeSeparateMatrix",
+     null
+    ],
+    [
+     "FunctionNodeTransformDirection",
+     null
+    ],
+    [
+     "FunctionNodeTransformPoint",
+     null
+    ],
+    [
+     "FunctionNodeTransposeMatrix",
+     null
+    ]
+   ]
+  },
+  "Utilities/Rotation": {
+   "class": "NODE_MT_compositor_node_rotation_base",
+   "bl_label": "Rotation",
+   "menu_path": "Utilities/Rotation",
+   "items": [
+    [
+     "FunctionNodeAlignRotationToVector",
+     null
+    ],
+    [
+     "FunctionNodeAxesToRotation",
+     null
+    ],
+    [
+     "FunctionNodeAxisAngleToRotation",
+     null
+    ],
+    [
+     "FunctionNodeEulerToRotation",
+     null
+    ],
+    [
+     "FunctionNodeInvertRotation",
+     null
+    ],
+    [
+     "ShaderNodeMix",
+     "Mix Rotation"
+    ],
+    [
+     "FunctionNodeRotateRotation",
+     null
+    ],
+    [
+     "FunctionNodeRotateVector",
+     null
+    ],
+    [
+     "FunctionNodeRotationToAxisAngle",
+     null
+    ],
+    [
+     "FunctionNodeRotationToEuler",
+     null
+    ],
+    [
+     "FunctionNodeRotationToQuaternion",
+     null
+    ],
+    [
+     "FunctionNodeQuaternionToRotation",
+     null
+    ]
+   ]
+  },
+  "Creative": {
+   "class": "NODE_MT_compositor_node_creative_base",
+   "bl_label": "Creative",
+   "menu_path": null,
+   "items": [
+    [
+     "CompositorNodeKuwahara",
+     null
+    ],
+    [
+     "CompositorNodePixelate",
+     null
+    ],
+    [
+     "CompositorNodePosterize",
+     null
+    ]
+   ]
+  }
+ },
+ "TextureNodeTree": {
+  "Input": {
+   "class": "NODE_MT_texture_node_input_base",
+   "bl_label": "Input",
+   "menu_path": null,
+   "items": [
+    [
+     "TextureNodeCoordinates",
+     null
+    ],
+    [
+     "TextureNodeCurveTime",
+     null
+    ],
+    [
+     "TextureNodeImage",
+     null
+    ],
+    [
+     "TextureNodeTexture",
+     null
+    ]
+   ]
+  },
+  "Output": {
+   "class": "NODE_MT_texture_node_output_base",
+   "bl_label": "Output",
+   "menu_path": null,
+   "items": [
+    [
+     "TextureNodeOutput",
+     null
+    ],
+    [
+     "TextureNodeViewer",
+     null
+    ]
+   ]
+  },
+  "Color": {
+   "class": "NODE_MT_texture_node_color_base",
+   "bl_label": "Color",
+   "menu_path": null,
+   "items": [
+    [
+     "TextureNodeHueSaturation",
+     null
+    ],
+    [
+     "TextureNodeInvert",
+     null
+    ],
+    [
+     "TextureNodeMixRGB",
+     null
+    ],
+    [
+     "TextureNodeCurveRGB",
+     null
+    ],
+    [
+     "TextureNodeCombineColor",
+     null
+    ],
+    [
+     "TextureNodeSeparateColor",
+     null
+    ]
+   ]
+  },
+  "Converter": {
+   "class": "NODE_MT_texture_node_converter_base",
+   "bl_label": "Converter",
+   "menu_path": null,
+   "items": [
+    [
+     "TextureNodeValToRGB",
+     null
+    ],
+    [
+     "TextureNodeDistance",
+     null
+    ],
+    [
+     "TextureNodeMath",
+     null
+    ],
+    [
+     "TextureNodeRGBToBW",
+     null
+    ],
+    [
+     "TextureNodeValToNor",
+     null
+    ]
+   ]
+  },
+  "Distort": {
+   "class": "NODE_MT_texture_node_distort_base",
+   "bl_label": "Distort",
+   "menu_path": null,
+   "items": [
+    [
+     "TextureNodeAt",
+     null
+    ],
+    [
+     "TextureNodeRotate",
+     null
+    ],
+    [
+     "TextureNodeScale",
+     null
+    ],
+    [
+     "TextureNodeTranslate",
+     null
+    ]
+   ]
+  },
+  "Pattern": {
+   "class": "NODE_MT_texture_node_pattern_base",
+   "bl_label": "Pattern",
+   "menu_path": null,
+   "items": [
+    [
+     "TextureNodeBricks",
+     null
+    ],
+    [
+     "TextureNodeChecker",
+     null
+    ]
+   ]
+  },
+  "Texture": {
+   "class": "NODE_MT_texture_node_texture_base",
+   "bl_label": "Texture",
+   "menu_path": null,
+   "items": [
+    [
+     "TextureNodeTexBlend",
+     null
+    ],
+    [
+     "TextureNodeTexClouds",
+     null
+    ],
+    [
+     "TextureNodeTexDistNoise",
+     null
+    ],
+    [
+     "TextureNodeTexMagic",
+     null
+    ],
+    [
+     "TextureNodeTexMarble",
+     null
+    ],
+    [
+     "TextureNodeTexMusgrave",
+     null
+    ],
+    [
+     "TextureNodeTexNoise",
+     null
+    ],
+    [
+     "TextureNodeTexStucci",
+     null
+    ],
+    [
+     "TextureNodeTexVoronoi",
+     null
+    ],
+    [
+     "TextureNodeTexWood",
+     null
+    ]
+   ]
+  }
+ }
+}

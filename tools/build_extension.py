@@ -73,12 +73,18 @@ def entries():
 
 
 def build_zip_bytes():
-    """在内存里生成 zip（可重现），打包与校验共用同一实现。"""
+    """在内存里生成 zip（可重现），打包与校验共用同一实现。
+
+    - 固定时间戳 + 固定权限位；
+    - ``create_system`` 固定为 3（Unix），否则 Windows 打包写 0、Linux 写 3，
+      同一个包在不同平台上字节不同。
+    """
     buffer = io.BytesIO()
     with zipfile.ZipFile(buffer, "w", zipfile.ZIP_DEFLATED) as archive:
         for arcname, data in entries():
             info = zipfile.ZipInfo(arcname, date_time=FIXED_DATE)
             info.compress_type = zipfile.ZIP_DEFLATED
+            info.create_system = 3
             info.external_attr = 0o644 << 16
             archive.writestr(info, data)
     return buffer.getvalue()

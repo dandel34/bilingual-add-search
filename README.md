@@ -209,8 +209,10 @@ bilingual-add-search/
 
 ### 许可
 
-GPL-3.0-or-later（与 `bl_info`、扩展 manifest 中的 SPDX 声明一致）。
-完整文本：<https://www.gnu.org/licenses/gpl-3.0.txt>
+GPL-3.0-or-later · Copyright (C) 2026 Dandel。
+
+仓库根目录的 `LICENSE` 是 GNU GPL v3 的官方全文（GitHub 可自动识别），
+SPDX 标识见 `__init__.py` 的 `bl_info` 与 `blender_manifest.toml`。
 
 ---
 

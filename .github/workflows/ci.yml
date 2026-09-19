@@ -25,8 +25,10 @@ jobs:
           python tools/build_node_table.py
           git diff --exit-code -- __init__.py
 
-      - name: manifest / 安装包 / 单文件与源码一致性
+      - name: 提交的 manifest / 安装包 / 单文件是否与源码一致
+        run: python tools/check_package.py
+
+      - name: 重新生成后文本产物无差异
         run: |
           python tools/build_extension.py
-          python tools/check_package.py
-          git diff --exit-code -- blender_manifest.toml dist/
+          git diff --exit-code -- blender_manifest.toml dist/bilingual_add_search.py

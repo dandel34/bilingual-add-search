@@ -81,11 +81,12 @@ def main():
             if not any(REQUIRED_LICENSE in item for item in licenses):
                 errors.append("manifest license = %r，缺少 %s" % (licenses, REQUIRED_LICENSE))
 
-    # --- 安装包
+    # --- 安装包（按「条目内容」校验，不要求压缩后的字节跨平台一致）
     zip_path = build_extension.ZIP_PATH
     if not zip_path.exists():
         errors.append("缺少安装包 %s（请运行 tools/build_extension.py）" % zip_path.name)
     else:
+        expected_entries = dict(build_extension.entries())
         with zipfile.ZipFile(zip_path) as archive:
             names = archive.namelist()
             if "__init__.py" in names:
@@ -93,17 +94,22 @@ def main():
             for name in names:
                 if "\\" in name:
                     errors.append("zip 条目使用了反斜杠: %s" % name)
-            for arcname, _data in build_extension.entries():
+            for arcname, expected in expected_entries.items():
                 if arcname not in names:
                     errors.append("zip 里缺少 %s" % arcname)
+                    continue
+                if archive.read(arcname) != expected:
+                    errors.append("zip 里的 %s 与当前文件不一致，请重新打包" % arcname)
+            extra = sorted(set(names) - set(expected_entries))
+            if extra:
+                notes.append("zip 里的额外文件: %s" % ", ".join(extra))
         notes.append("安装包: %s（%d 个条目，%d 字节）"
                      % (zip_path.name, len(names), zip_path.stat().st_size))
-
-        if zip_path.read_bytes() != build_extension.build_zip_bytes():
-            errors.append("提交的 %s 与当前源码不一致，请重新运行 tools/build_extension.py 并提交"
-                          % zip_path.name)
+        if zip_path.read_bytes() == build_extension.build_zip_bytes():
+            notes.append("安装包与当前源码重新打包的结果逐字节一致")
         else:
-            notes.append("安装包与当前源码一致（可重现构建）")
+            notes.append("安装包内容一致，但压缩字节与本机重新打包不同"
+                         "（zip 压缩结果与 Python/zlib 版本有关，不影响安装）")
 
     # --- 旧版单文件
     legacy = build_extension.LEGACY_PY

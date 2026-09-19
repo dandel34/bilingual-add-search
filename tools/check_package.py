@@ -1,4 +1,4 @@
-"""校验安装包、扩展 manifest 与源码是否同步。
+"""校验扩展包结构、manifest 与生成物是否与源码同步。
 
 CI 与本地都能跑：
 
@@ -6,19 +6,21 @@ CI 与本地都能跑：
     python tools/check_package.py
 
 检查项：
-1. `bilingual_add_search.py` 能编译（语法正确）；
-2. 生成的 `blender_manifest.toml` 的 id / version / type / license 与 `bl_info` 一致；
-3. 仓库里提交的 `dist/bilingual_add_search-<版本>.zip` 与**当前源码重新打包的结果逐字节一致**
-   （打包使用固定时间戳，可重现；不一致说明忘了重新打包并提交）；
-4. zip 结构正确：`__init__.py` 必须位于子目录内（放在 zip 根目录时 Blender 会报
-   "ZIP packaged incorrectly"），且条目分隔符不能是反斜杠。
+1. `__init__.py` 能编译（语法正确），且包含 `bl_info`；
+2. 根目录 `blender_manifest.toml` 与依据 `bl_info` 生成的内容逐字节一致
+   （否则说明改了版本/名称却忘了重新生成）；
+3. `dist/bilingual_add_search-<版本>.zip` 与当前源码重新打包的结果逐字节一致
+   （固定时间戳，可重现）；
+4. zip 结构：`__init__.py` 必须位于子目录内（旧版 Blender 的安装器要求如此），
+   条目分隔符不能是反斜杠；
+5. `dist/bilingual_add_search.py`（旧版单文件）与 `__init__.py` 一致。
 """
 
 import pathlib
 import sys
 import zipfile
 
-# 控制台编码（Windows GBK）无法编码 ✓/✗ 时不要崩，退化成 '?'
+# 控制台编码（Windows GBK）无法编码部分符号时不要崩，退化成 '?'
 for _stream in (sys.stdout, sys.stderr):
     try:
         _stream.reconfigure(errors="replace")
@@ -26,7 +28,8 @@ for _stream in (sys.stdout, sys.stderr):
         pass
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-SOURCE = ROOT / "bilingual_add_search.py"
+SOURCE = ROOT / "__init__.py"
+MANIFEST = ROOT / "blender_manifest.toml"
 TOOLS = ROOT / "tools"
 sys.path.insert(0, str(TOOLS))
 
@@ -49,31 +52,36 @@ def main():
     except SyntaxError as exc:
         errors.append("插件语法错误: %s" % exc)
 
-    info = build_extension.BL_INFO
     version = build_extension.VERSION
-    print("插件版本: %s（bl_info）" % version)
+    print("插件版本: %s（__init__.py 的 bl_info）" % version)
 
-    # --- manifest 内容
-    manifest_text = build_extension.MANIFEST
-    if tomllib is None:
-        notes.append("Python < 3.11，跳过 manifest 解析（CI 使用 3.12）")
+    # --- 根目录 manifest
+    if not MANIFEST.exists():
+        errors.append("缺少根目录 blender_manifest.toml（请运行 tools/build_extension.py）")
     else:
-        data = tomllib.loads(manifest_text)
-        print("manifest: id=%s version=%s license=%s"
-              % (data.get("id"), data.get("version"), data.get("license")))
-        if data.get("id") != build_extension.PKG_NAME:
-            errors.append("manifest id = %r，期望 %r"
-                          % (data.get("id"), build_extension.PKG_NAME))
-        if data.get("version") != version:
-            errors.append("manifest version = %r，但 bl_info 是 %r"
-                          % (data.get("version"), version))
-        if data.get("type") != "add-on":
-            errors.append("manifest type = %r，期望 'add-on'" % data.get("type"))
-        licenses = data.get("license") or []
-        if not any(REQUIRED_LICENSE in item for item in licenses):
-            errors.append("manifest license = %r，缺少 %s" % (licenses, REQUIRED_LICENSE))
+        text = MANIFEST.read_text(encoding="utf-8")
+        if text != build_extension.MANIFEST_TEXT:
+            errors.append("blender_manifest.toml 与 bl_info 生成的内容不一致，"
+                          "请重新运行 tools/build_extension.py 并提交")
+        if tomllib is None:
+            notes.append("Python < 3.11，跳过 manifest 解析（CI 使用 3.12）")
+        else:
+            data = tomllib.loads(text)
+            print("manifest: id=%s version=%s license=%s"
+                  % (data.get("id"), data.get("version"), data.get("license")))
+            if data.get("id") != build_extension.PKG_NAME:
+                errors.append("manifest id = %r，期望 %r"
+                              % (data.get("id"), build_extension.PKG_NAME))
+            if data.get("version") != version:
+                errors.append("manifest version = %r，但 bl_info 是 %r"
+                              % (data.get("version"), version))
+            if data.get("type") != "add-on":
+                errors.append("manifest type = %r，期望 'add-on'" % data.get("type"))
+            licenses = data.get("license") or []
+            if not any(REQUIRED_LICENSE in item for item in licenses):
+                errors.append("manifest license = %r，缺少 %s" % (licenses, REQUIRED_LICENSE))
 
-    # --- zip 结构
+    # --- 安装包
     zip_path = build_extension.ZIP_PATH
     if not zip_path.exists():
         errors.append("缺少安装包 %s（请运行 tools/build_extension.py）" % zip_path.name)
@@ -81,7 +89,7 @@ def main():
         with zipfile.ZipFile(zip_path) as archive:
             names = archive.namelist()
             if "__init__.py" in names:
-                errors.append("zip 根目录下有 __init__.py，Blender 会拒绝安装")
+                errors.append("zip 根目录下有 __init__.py，旧版 Blender 会拒绝安装")
             for name in names:
                 if "\\" in name:
                     errors.append("zip 条目使用了反斜杠: %s" % name)
@@ -91,13 +99,21 @@ def main():
         notes.append("安装包: %s（%d 个条目，%d 字节）"
                      % (zip_path.name, len(names), zip_path.stat().st_size))
 
-        # --- 与当前源码重新打包的结果逐字节比对
-        expected = build_extension.build_zip_bytes()
-        if zip_path.read_bytes() != expected:
+        if zip_path.read_bytes() != build_extension.build_zip_bytes():
             errors.append("提交的 %s 与当前源码不一致，请重新运行 tools/build_extension.py 并提交"
                           % zip_path.name)
         else:
             notes.append("安装包与当前源码一致（可重现构建）")
+
+    # --- 旧版单文件
+    legacy = build_extension.LEGACY_PY
+    if not legacy.exists():
+        errors.append("缺少旧版单文件 %s（请运行 tools/build_extension.py）" % legacy.name)
+    elif legacy.read_bytes() != SOURCE.read_bytes():
+        errors.append("dist/%s 与 __init__.py 不一致，请重新运行 tools/build_extension.py"
+                      % legacy.name)
+    else:
+        notes.append("旧版单文件: %s（与 __init__.py 一致）" % legacy.name)
 
     for note in notes:
         print("· %s" % note)

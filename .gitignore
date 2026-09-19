@@ -4,8 +4,8 @@ __pycache__/
 *.blend1
 *.blend2
 
-# 打包中间产物（dist/*.zip 是故意提交的安装包，见 README）
-dist/bilingual_add_search/
+# 打包中间产物
+# 注意：dist/ 下的 zip 与单文件是故意提交的发行产物，见 README
 
 # 本地临时文件
 .tmp/

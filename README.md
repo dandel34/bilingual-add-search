@@ -19,7 +19,7 @@
 | --- | --- |
 | **What it does** | Adds bilingual alias entries to the 3D View **Add** menu (`Shift+A`) and the Node Editor **Add** menu, so `cube` *or* `立方体` (nodes: `noise` *or* `噪波纹理`) find the same item. Blender's built-in menus are left untouched. |
 | **Coverage** | 3D View objects: 77 aliases / 13 categories · Nodes: 642 aliases / 88 categories — shader (material), compositor, texture and geometry node trees. |
-| **Install** | Blender 4.2+: download `bilingual_add_search-<version>.zip` from [Releases](../../releases) → `Edit ▸ Preferences ▸ Add-ons ▸ ⌄ ▸ Install from Disk`. Blender 3.x–4.1: copy `bilingual_add_search.py` into your add-ons folder and enable it. |
+| **Install** | Blender 4.2+: install `bilingual_add_search-<version>.zip` ([Releases](../../releases)) — or this repo's own `Code ▸ Download ZIP` — via `Edit ▸ Preferences ▸ Add-ons ▸ ⌄ ▸ Install from Disk`. Blender 3.x–4.1: use `dist/bilingual_add_search.py` as a single-file add-on. |
 | **Use** | Press `Shift+A` and start typing. Alias entries show up as `BNA ‣ Texture ‣ 噪波纹理 Noise Texture`; category words (`texture` / `纹理`) work as filters too. |
 | **Extras** | `Shift+Alt+L` toggles the UI language (zh_HANS ⇄ en_US). The search prefix `BNA` is configurable in the add-on preferences. |
 | **Compatibility** | Blender 3.x ～ 5.x (developed and verified on 5.2.2 LTS), Windows / macOS / Linux. |
@@ -82,22 +82,30 @@ Blender 的菜单搜索在绘制菜单时，会把每个条目拼成
 
 ## 二、安装
 
-| 方式 | 文件 | 适用 |
+这个仓库本身就是标准扩展包（根目录有 `__init__.py` + `blender_manifest.toml`），三种装法：
+
+| 方式 | 用什么 | 适用 |
 | --- | --- | --- |
-| A（推荐，普通用户） | [Releases](../../releases) 里的 `bilingual_add_search-<版本>.zip` | Blender 4.2+ / 5.x 扩展包格式 |
-| B（开发者 / 老版本） | `bilingual_add_search.py`（仓库根目录） | Blender 3.x ～ 5.x，单文件即插即用 |
+| A（推荐） | [Releases](../../releases) 里的 `bilingual_add_search-<版本>.zip` | Blender 4.2+ / 5.x |
+| B（不用等 Release） | 仓库页 `Code ▸ Download ZIP`，再把这个 zip 从磁盘安装 | Blender 4.2+ / 5.x |
+| C（老版本 / 单文件） | `dist/bilingual_add_search.py` | Blender 3.x ～ 4.1 |
 
-**编辑 → 偏好设置 → 插件 → 右上角 ⌄ → 从磁盘安装**，选择上面的文件 → 在列表里勾选启用
-（搜索 `Bilingual` 或 `中英`）。
+统一操作：**编辑 → 偏好设置 → 插件 → 右上角 ⌄ → 从磁盘安装**，选择上面的文件 →
+在列表里勾选启用（搜索 `Bilingual` 或 `中英`）。
 
-也可以直接把 `bilingual_add_search.py` 复制到用户插件目录后重启 Blender：
+老版本也可以用单文件方式：把 `dist/bilingual_add_search.py` 复制到用户插件目录后重启 Blender：
 
 ```
 %APPDATA%\Blender Foundation\Blender\5.2\scripts\addons\
 ```
 
-> 打 tag（如 `git tag v1.2.1 && git push --tags`）会触发 GitHub Actions 自动打包 zip
-> 并创建对应的 Release，见 `.github/workflows/release.yml`。
+> - **方式 B 为什么可行（已实测）**：仓库根目录就是扩展包（`__init__.py` + `blender_manifest.toml`），
+>   Blender 按 manifest 识别包，所以 GitHub 的 Download ZIP（里面那层 `bilingual-add-search-main/`
+>   目录名带连字符也没关系）可以直接从磁盘安装。
+> - **开发/自用**：把整个仓库文件夹丢进 `scripts/addons/`（连字符目录名也能被识别，已实测），
+>   或在偏好设置 → 文件路径里把仓库所在目录加为脚本目录。
+> - 打 tag（如 `git tag v1.2.1 && git push --tags`）会触发 GitHub Actions 自动打包 zip
+>   并创建对应的 Release，见 `.github/workflows/release.yml`。
 
 ---
 
@@ -170,18 +178,24 @@ Blender 的菜单搜索在绘制菜单时，会把每个条目拼成
 
 ## 五、仓库结构与维护
 
+仓库根目录**就是标准扩展包**（可提交到 extensions.blender.org，也可直接打包安装）：
+
 ```
 bilingual-add-search/
-├─ bilingual_add_search.py          # 插件本体（单文件即可安装）
-├─ dist/
-│  ├─ bilingual_add_search-1.2.0.zip# 扩展包（Blender 4.2+「从磁盘安装」）
-│  └─ bilingual_add_search/         # 扩展包源（构建中间产物，未纳入版本控制）
-├─ tools/                           # 数据提取 / 打包脚本（终端用户无需运行）
+├─ __init__.py                      # 插件本体（扩展包入口，同时也是完整源码）
+├─ blender_manifest.toml            # 扩展 manifest（由 tools/build_extension.py 依据 bl_info 生成）
+├─ dist/                            # 发行产物（由脚本生成，故意提交进仓库）
+│  ├─ bilingual_add_search-1.2.0.zip# 扩展包安装包（zip 内为 bilingual_add_search/ 子目录）
+│  └─ bilingual_add_search.py       # 旧版单文件（Blender 3.x–4.1 用）
+├─ docs/screenshot-search.png       # README 截图
+├─ tools/                           # 数据提取 / 打包 / 校验脚本（终端用户无需运行）
 │  ├─ extract_add_menu.py           # 解析 bl_ui/space_view3d.py → add_menu_tree.json
 │  ├─ extract_node_menu.py          # 解析 bl_ui/node_add_menu_*.py → node_menu_tree.json
-│  ├─ build_node_table.py           # 把节点表写回插件源码（幂等）
-│  ├─ build_extension.py            # 打包 dist/*.zip（版本号取自 bl_info）
+│  ├─ build_node_table.py           # 把节点别名表写回 __init__.py（幂等）
+│  ├─ build_extension.py            # 生成 manifest + dist/ 里的 zip 与单文件（可重现构建）
+│  ├─ check_package.py              # 校验 manifest / zip / 单文件与源码一致（CI 同款）
 │  └─ *.json                        # 别名表数据与官方中文译名快照
+├─ .github/workflows/               # CI 与 Release 自动化
 ├─ CHANGELOG.md
 ├─ LICENSE                          # GPL-3.0-or-later
 └─ README.md
@@ -190,7 +204,8 @@ bilingual-add-search/
 - 插件启动时会自动校验：物体别名（算子/枚举/图标）与节点别名（`Node.bl_rna_get_subclass`），
   失效条目跳过并打印日志，**不会在点击时报错**；若 Blender 缺少中文词条，
   节点别名自动退化为英文标签（英文搜索仍然可用）。
-- 重建别名表 / 重新打包：见 `tools/README.md`。
+- 改完源码后请运行 `python tools/build_extension.py`（同步 manifest 与 dist/）并
+  `python tools/check_package.py`；重建别名表见 `tools/README.md`。
 
 ### 许可
 

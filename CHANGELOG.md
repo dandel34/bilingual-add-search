@@ -3,6 +3,13 @@
 本项目遵循 [语义化版本](https://semver.org/lang/zh-CN/)，版本号与插件 `bl_info`、
 扩展 manifest 保持一致（打包脚本会自动读取 `bl_info`）。
 
+## 仓库打包方式（不影响版本号）
+
+- 仓库根目录改为**标准扩展包结构**：`__init__.py` + `blender_manifest.toml`，
+  因此仓库的 `Code ▸ Download ZIP` 可以直接在 Blender 4.2+ 里「从磁盘安装」。
+- `tools/build_extension.py` 负责生成 manifest 与 `dist/`（扩展 zip + 旧版单文件），
+  zip 使用固定时间戳，可重现构建；`tools/check_package.py` 在 CI 里校验一致性。
+
 ## 1.2.0
 
 - 搜索结果前缀由 `中英双语节点搜索 Bilingual Node Aliases` 缩短为 **`BNA`**

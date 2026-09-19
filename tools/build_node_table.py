@@ -1,14 +1,14 @@
-"""Regenerate the NODE_ALIAS_GROUPS table inside bilingual_add_search.py.
+"""Regenerate the NODE_ALIAS_GROUPS table inside the add-on package.
 
 Reads tools/node_menu_tree.json (produced by tools/extract_node_menu.py) and
-rewrites everything between the two marker comments in the addon source.
+rewrites everything between the two marker comments in ``__init__.py``.
 """
 
 import json
 import pathlib
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-SOURCE = ROOT / "bilingual_add_search.py"
+SOURCE = ROOT / "__init__.py"
 TREE_JSON = ROOT / "tools" / "node_menu_tree.json"
 
 BEGIN = "# === BEGIN GENERATED NODE TABLE ==="

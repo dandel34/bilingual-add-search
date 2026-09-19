@@ -1,0 +1,13 @@
+schema_version = "1.0.0"
+
+id = "bilingual_add_search"
+version = "1.2.0"
+name = "Bilingual Add Search"
+tagline = "添加菜单与节点菜单：中文、英文关键词都能搜到同一条目"
+maintainer = "DSH"
+type = "add-on"
+
+blender_version_min = "4.2.0"
+license = ["SPDX:GPL-3.0-or-later"]
+
+tags = ["User Interface", "Object"]

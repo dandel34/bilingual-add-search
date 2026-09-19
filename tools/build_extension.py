@@ -1,43 +1,46 @@
-"""Build installable artifacts from the single-file addon source.
+"""打包/生成扩展包与旧版单文件插件。
 
-Outputs (repository-relative):
-  dist/bilingual_add_search/__init__.py           - extension package source
-  dist/bilingual_add_search/blender_manifest.toml - extension manifest (Blender 4.2+)
-  dist/bilingual_add_search-<version>.zip         - zip installable via "Install from Disk"
+仓库本身就是标准扩展包（根目录 `__init__.py` + `blender_manifest.toml`），
+本脚本负责：
 
-The zip is written with fixed timestamps so repeated builds are byte-identical;
-that lets CI verify the committed zip really matches the current source.
+1. 依据 `__init__.py` 里的 `bl_info` 生成根目录 `blender_manifest.toml`（提交进仓库）；
+2. 生成 `dist/bilingual_add_search-<版本>.zip`：扩展包安装包（zip 内是
+   `bilingual_add_search/` 子目录，Blender 4.2+「从磁盘安装」可用，
+   旧版 Blender 的插件安装器也接受这种结构）；
+3. 生成 `dist/bilingual_add_search.py`：Blender 3.x–4.1 用的旧版单文件插件。
+
+zip 使用固定时间戳，重复打包字节一致，便于 CI 校验提交物与源码同步。
 """
 
 import ast
 import io
 import pathlib
-import shutil
 import zipfile
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-SOURCE = ROOT / "bilingual_add_search.py"
+SOURCE = ROOT / "__init__.py"
+MANIFEST = ROOT / "blender_manifest.toml"
 DIST = ROOT / "dist"
 PKG_NAME = "bilingual_add_search"
-PKG = DIST / PKG_NAME
+LEGACY_PY = DIST / f"{PKG_NAME}.py"
 
 # 固定时间戳，保证可重现构建（重复打包字节一致）
 FIXED_DATE = (2026, 1, 1, 0, 0, 0)
 
 
-def addon_version():
-    """版本号以 bilingual_add_search.py 的 bl_info 为准，避免两处不同步。"""
+def addon_info():
+    """元数据以 __init__.py 的 bl_info 为准，避免两处不同步。"""
     tree = ast.parse(SOURCE.read_text(encoding="utf-8"))
     for node in tree.body:
         if isinstance(node, ast.Assign) and getattr(node.targets[0], "id", "") == "bl_info":
-            info = ast.literal_eval(node.value)
-            return ".".join(str(part) for part in info["version"]), info
+            return ast.literal_eval(node.value)
     raise SystemExit("bl_info not found in %s" % SOURCE)
 
 
-VERSION, BL_INFO = addon_version()
+INFO = addon_info()
+VERSION = ".".join(str(part) for part in INFO["version"])
 
-MANIFEST = f'''schema_version = "1.0.0"
+MANIFEST_TEXT = f'''schema_version = "1.0.0"
 
 id = "{PKG_NAME}"
 version = "{VERSION}"
@@ -54,13 +57,19 @@ tags = ["User Interface", "Object"]
 
 ZIP_PATH = DIST / f"{PKG_NAME}-{VERSION}.zip"
 
+# 扩展包之外还应该带上仓库里的说明/许可证（Blender 会忽略这些文件）
+EXTRA_FILES = ("README.md", "CHANGELOG.md", "LICENSE")
+
 
 def entries():
-    """扩展包条目: [(zip 内路径, 字节内容), ...]"""
-    return [
-        (f"{PKG_NAME}/__init__.py", SOURCE.read_bytes()),
-        (f"{PKG_NAME}/blender_manifest.toml", MANIFEST.encode("utf-8")),
-    ]
+    """zip 条目: [(zip 内路径, 字节内容), ...]"""
+    items = [(f"{PKG_NAME}/__init__.py", SOURCE.read_bytes()),
+             (f"{PKG_NAME}/blender_manifest.toml", MANIFEST_TEXT.encode("utf-8"))]
+    for name in EXTRA_FILES:
+        path = ROOT / name
+        if path.exists():
+            items.append((f"{PKG_NAME}/{name}", path.read_bytes()))
+    return items
 
 
 def build_zip_bytes():
@@ -76,16 +85,19 @@ def build_zip_bytes():
 
 
 def main():
-    PKG.mkdir(parents=True, exist_ok=True)
-    shutil.copyfile(SOURCE, PKG / "__init__.py")
-    (PKG / "blender_manifest.toml").write_text(MANIFEST, encoding="utf-8", newline="\n")
-    ZIP_PATH.write_bytes(build_zip_bytes())
+    DIST.mkdir(parents=True, exist_ok=True)
 
-    print("version : %s" % VERSION)
+    MANIFEST.write_text(MANIFEST_TEXT, encoding="utf-8", newline="\n")
+    ZIP_PATH.write_bytes(build_zip_bytes())
+    LEGACY_PY.write_bytes(SOURCE.read_bytes())
+
+    print("version  : %s" % VERSION)
+    print("manifest : %s" % MANIFEST.relative_to(ROOT))
     with zipfile.ZipFile(ZIP_PATH) as archive:
         for name in archive.namelist():
-            print("  entry : %s" % name)
-    print("bytes   : %d -> %s" % (ZIP_PATH.stat().st_size, ZIP_PATH))
+            print("  entry  : %s" % name)
+    print("zip      : %d bytes -> %s" % (ZIP_PATH.stat().st_size, ZIP_PATH.relative_to(ROOT)))
+    print("legacy   : %d bytes -> %s" % (LEGACY_PY.stat().st_size, LEGACY_PY.relative_to(ROOT)))
 
 
 if __name__ == "__main__":

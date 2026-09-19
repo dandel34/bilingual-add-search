@@ -1,4 +1,33 @@
-# 中英双语添加搜索 · Bilingual Add Search
+# Bilingual Add Search · 中英双语添加搜索
+
+[![CI](https://github.com/dandel34/bilingual-add-search/actions/workflows/ci.yml/badge.svg)](https://github.com/dandel34/bilingual-add-search/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/dandel34/bilingual-add-search?label=release&color=blue)](https://github.com/dandel34/bilingual-add-search/releases)
+[![License: GPL-3.0-or-later](https://img.shields.io/badge/license-GPL--3.0--or--later-blue.svg)](LICENSE)
+[![Blender](https://img.shields.io/badge/Blender-3.x%20~%205.x-orange.svg)](https://www.blender.org)
+
+**Search Blender's Shift+A menus in Chinese *or* English — one item, two languages.**
+在 Blender 的「添加」菜单（Shift+A）与节点菜单里，中文、英文关键词都能搜到同一个条目。
+
+![双语搜索结果示例](docs/screenshot-search.png)
+
+> 截图：材质（着色器）节点 Shift+A 的搜索结果 —— 中英文关键词都能命中同一条目。
+> 1.2.0 起前缀已缩短为 `BNA`，可用新截图替换 `docs/screenshot-search.png`。
+
+## English quick start
+
+| | |
+| --- | --- |
+| **What it does** | Adds bilingual alias entries to the 3D View **Add** menu (`Shift+A`) and the Node Editor **Add** menu, so `cube` *or* `立方体` (nodes: `noise` *or* `噪波纹理`) find the same item. Blender's built-in menus are left untouched. |
+| **Coverage** | 3D View objects: 77 aliases / 13 categories · Nodes: 642 aliases / 88 categories — shader (material), compositor, texture and geometry node trees. |
+| **Install** | Blender 4.2+: download `bilingual_add_search-<version>.zip` from [Releases](../../releases) → `Edit ▸ Preferences ▸ Add-ons ▸ ⌄ ▸ Install from Disk`. Blender 3.x–4.1: copy `bilingual_add_search.py` into your add-ons folder and enable it. |
+| **Use** | Press `Shift+A` and start typing. Alias entries show up as `BNA ‣ Texture ‣ 噪波纹理 Noise Texture`; category words (`texture` / `纹理`) work as filters too. |
+| **Extras** | `Shift+Alt+L` toggles the UI language (zh_HANS ⇄ en_US). The search prefix `BNA` is configurable in the add-on preferences. |
+| **Compatibility** | Blender 3.x ～ 5.x (developed and verified on 5.2.2 LTS), Windows / macOS / Linux. |
+| **License** | GPL-3.0-or-later |
+
+---
+
+## 中文说明
 
 **Shift+A 打开「添加」菜单后，搜索框里输入中文或英文，都能找到同一个条目。**
 
@@ -55,8 +84,8 @@ Blender 的菜单搜索在绘制菜单时，会把每个条目拼成
 
 | 方式 | 文件 | 适用 |
 | --- | --- | --- |
-| A（推荐） | `bilingual_add_search.py` | Blender 3.x ～ 5.x，单文件即插即用 |
-| B | `dist/bilingual_add_search-1.2.0.zip` | Blender 4.2+ / 5.x 扩展包格式 |
+| A（推荐，普通用户） | [Releases](../../releases) 里的 `bilingual_add_search-<版本>.zip` | Blender 4.2+ / 5.x 扩展包格式 |
+| B（开发者 / 老版本） | `bilingual_add_search.py`（仓库根目录） | Blender 3.x ～ 5.x，单文件即插即用 |
 
 **编辑 → 偏好设置 → 插件 → 右上角 ⌄ → 从磁盘安装**，选择上面的文件 → 在列表里勾选启用
 （搜索 `Bilingual` 或 `中英`）。
@@ -66,6 +95,9 @@ Blender 的菜单搜索在绘制菜单时，会把每个条目拼成
 ```
 %APPDATA%\Blender Foundation\Blender\5.2\scripts\addons\
 ```
+
+> 打 tag（如 `git tag v1.2.1 && git push --tags`）会触发 GitHub Actions 自动打包 zip
+> 并创建对应的 Release，见 `.github/workflows/release.yml`。
 
 ---
 

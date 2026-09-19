@@ -22,6 +22,7 @@ export BLENDER_BL_UI=/usr/share/blender/5.2/scripts/startup/bl_ui
 | `extract_node_menu.py` | 解析 `bl_ui/node_add_menu_*.py`，输出 `node_menu_tree.json`：四种节点树的分类结构与节点类型 ID |
 | `build_node_table.py` | 把 `node_menu_tree.json` 写回 `bilingual_add_search.py` 中 `# === BEGIN/END GENERATED NODE TABLE ===` 标记之间（幂等，可反复运行） |
 | `build_extension.py` | 生成 `dist/bilingual_add_search/`（扩展包源）与 `dist/bilingual_add_search-<版本>.zip`，版本号取自插件 `bl_info` |
+| `check_package.py` | 校验 manifest 与 `bl_info` 一致、zip 内文件与源码逐字节一致、zip 结构可被 Blender 安装（CI 也会跑） |
 
 常用流程（Blender 大版本升级后）：
 

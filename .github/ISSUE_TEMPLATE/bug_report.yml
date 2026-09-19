@@ -1,0 +1,83 @@
+name: Bug 报告 / Bug report
+description: 报告插件没有按预期工作（搜索不到、装了没反应、报错等）
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢反馈！请尽量填全下面的信息，尤其是**界面语言**和**你输入的关键词**——
+        这个插件的核心就是搜索匹配，这两项决定了能不能复现。
+  - type: input
+    id: blender_version
+    attributes:
+      label: Blender 版本
+      description: 在 `帮助 ▸ 关于 Blender` 里可以看到，例如 5.2.2 LTS
+      placeholder: "5.2.2 LTS"
+    validations:
+      required: true
+  - type: input
+    id: addon_version
+    attributes:
+      label: 插件版本
+      description: 偏好设置 ▸ 插件 里搜「中英/Bilingual」可以看到版本号，或填 zip 文件名
+      placeholder: "1.2.0"
+    validations:
+      required: true
+  - type: dropdown
+    id: install_method
+    attributes:
+      label: 安装方式
+      options:
+        - 从磁盘安装 zip（扩展包）
+        - 复制 bilingual_add_search.py 到插件目录
+        - 其它（在下面说明）
+    validations:
+      required: true
+  - type: dropdown
+    id: ui_language
+    attributes:
+      label: 界面语言（偏好设置 ▸ 界面 ▸ 翻译）
+      options:
+        - 简体中文 zh_HANS
+        - 繁體中文 zh_HANT
+        - English en_US
+        - 其它（在下面说明）
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: 出问题的菜单
+      options:
+        - 3D 视图 Shift+A（添加物体）
+        - 材质/着色器节点 Shift+A
+        - 合成 / 纹理 / 几何 节点 Shift+A
+        - 界面语言快捷键 Shift+Alt+L
+        - 其它
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: 复现步骤
+      description: 说明你按了什么键、输入了什么关键词
+      placeholder: |
+        1. 打开着色器编辑器（材质）
+        2. Shift+A，输入 noise
+        3. 结果里没有出现 BNA 开头的条目
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 期望结果 vs 实际结果
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: 报错信息 / 截图（可选）
+      description: 控制台报错请从 `窗口 ▸ 切换系统控制台` 复制
+    validations:
+      required: false

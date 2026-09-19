@@ -1,7 +1,7 @@
 schema_version = "1.0.0"
 
 id = "bilingual_add_search"
-version = "1.2.0"
+version = "1.3.0"
 name = "Bilingual Add Search"
 tagline = "添加菜单与节点菜单：中文、英文关键词都能搜到同一条目"
 maintainer = "DSH"

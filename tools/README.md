@@ -23,6 +23,7 @@ export BLENDER_BL_UI=/usr/share/blender/5.2/scripts/startup/bl_ui
 | `build_node_table.py` | 把 `node_menu_tree.json` 写回根目录 `__init__.py` 中 `# === BEGIN/END GENERATED NODE TABLE ===` 标记之间（幂等，可反复运行） |
 | `build_extension.py` | 生成根目录 `blender_manifest.toml`、`dist/bilingual_add_search-<版本>.zip`（扩展包）与 `dist/bilingual_add_search.py`（旧版单文件）；版本号取自 `__init__.py` 的 `bl_info`，zip 固定时间戳可重现 |
 | `check_package.py` | 校验 manifest 与 `bl_info` 一致、zip 内文件与源码逐字节一致、zip 结构可被 Blender 安装、旧版单文件与源码一致（CI 也会跑） |
+| `audit_coverage.py` | **覆盖率审计**：把别名表与 Blender 官方菜单逐条对照，列出缺失/过期条目与未覆盖的枚举型子菜单；发现缺失时以非零状态退出 |
 
 常用流程：
 
@@ -31,16 +32,23 @@ export BLENDER_BL_UI=/usr/share/blender/5.2/scripts/startup/bl_ui
 python tools/build_extension.py
 python tools/check_package.py
 
-# Blender 大版本升级后重建别名表
-python tools/extract_add_menu.py        # 需要人工核对 3D 视图别名表的变化
-python tools/extract_node_menu.py
-python tools/build_node_table.py
+# Blender 大版本升级后：重建别名表并检查有没有漏条目
+python tools/extract_add_menu.py        # 3D 视图菜单 → add_menu_tree.json
+python tools/extract_node_menu.py       # 节点菜单 → node_menu_tree.json
+python tools/build_node_table.py        # 写回 __init__.py（自动生成部分）
+python tools/audit_coverage.py          # ← 逐条对照官方菜单，报告缺失/过期
 python tools/build_extension.py
 python tools/check_package.py
 ```
 
-> 3D 视图那 77 条别名（`ALIAS_CATEGORIES`）是手写表格，脚本只负责**导出真实菜单内容供核对**；
-> 节点表（642 条）是脚本自动生成的。两处的中文名都取自 Blender 自带的 `zh_HANS` 词条。
+> - 3D 视图那 77 条别名（`ALIAS_CATEGORIES`）与节点侧 12 条补充条目
+>   （`NODE_EXTRA_ALIASES`：区域/类型化捆包/框/转接/新建组/组输入输出）是**手写表格**，
+>   `audit_coverage.py` 负责告诉你有没有漏、有没有过期；
+> - 节点表（642 条）由 `build_node_table.py` 自动生成；
+> - 所有中文名都取自 Blender 自带的 `zh_HANS` 词条，与官方界面一致。
+
+> `audit_coverage.py` 的「辅助函数绘制的条目」与「共享基础菜单」两部分需要读取
+> Blender 自带的 `bl_ui` 源码（`BLENDER_BL_UI`），因此建议在装了 Blender 的机器上跑。
 
 ## 数据文件
 

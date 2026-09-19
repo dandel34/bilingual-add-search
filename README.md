@@ -18,7 +18,7 @@
 | | |
 | --- | --- |
 | **What it does** | Adds bilingual alias entries to the 3D View **Add** menu (`Shift+A`) and the Node Editor **Add** menu, so `cube` *or* `立方体` (nodes: `noise` *or* `噪波纹理`) find the same item. Blender's built-in menus are left untouched. |
-| **Coverage** | 3D View objects: 77 aliases / 13 categories · Nodes: 642 aliases / 88 categories — shader (material), compositor, texture and geometry node trees. |
+| **Coverage** | 3D View objects: 77 aliases / 13 categories · Nodes: 642 menu items + 12 hand-added extras (zones, frame, reroute, group, typed bundle) across shader (material), compositor, texture and geometry trees. |
 | **Install** | Blender 4.2+: install `bilingual_add_search-<version>.zip` ([Releases](../../releases)) — or this repo's own `Code ▸ Download ZIP` — via `Edit ▸ Preferences ▸ Add-ons ▸ ⌄ ▸ Install from Disk`. Blender 3.x–4.1: use `dist/bilingual_add_search.py` as a single-file add-on. |
 | **Use** | Press `Shift+A` and start typing. Alias entries show up as `BNA ‣ Texture ‣ 噪波纹理 Noise Texture`; category words (`texture` / `纹理`) work as filters too. |
 | **Extras** | `Shift+Alt+L` toggles the UI language (zh_HANS ⇄ en_US). The search prefix `BNA` is configurable in the add-on preferences. |
@@ -35,8 +35,9 @@
 - 材质/着色器节点：输入 `noise` 或 `噪波纹理` → 同一个噪波纹理节点
 - 顺带覆盖合成、纹理、几何节点编辑器
 
-当前版本 **1.2.0**：1.0.0 只有 3D 视图物体添加菜单；1.1.0 增加节点菜单；
-1.2.0 把搜索结果里的长前缀缩短为 **`BNA`**（可在偏好设置里改成任意文字）。
+当前版本 **1.3.0**：1.0.0 只有 3D 视图物体添加菜单；1.1.0 增加节点菜单；
+1.2.0 把搜索前缀缩为 `BNA`；1.3.0 补齐节点菜单里非 `node.add_node` 绘制的条目
+（区域、类型化捆包、框、转接点、新建组、组输入输出）。
 
 ---
 
@@ -132,16 +133,36 @@ Blender 的菜单搜索在绘制菜单时，会把每个条目拼成
 3. 结果出现 «添加 ‣ **BNA** ‣ 着色器 Shader ‣ 混合着色器 Mix Shader»，点击即添加节点，
    拖动摆放行为与原生条目一致。
 
-覆盖范围（全部照抄官方菜单的分类结构）：
+覆盖范围（分类结构与官方菜单一致；「别名条数」为普通节点树下的数量）：
 
-| 节点树 | 节点条目 | 顶层分类 |
-| --- | --- | --- |
-| 着色器 ShaderNodeTree | 99 | 输入 / 输出 / 着色器 / 颜色 / 纹理 / 实用工具 / 置换 |
-| 合成 CompositorNodeTree | 164 | 输入 / 输出 / 颜色 / 滤镜 / 抠像 / 遮罩 / 追踪 / 变换 / 纹理 / 实用工具 / 创意 |
-| 纹理 TextureNodeTree | 33 | 输入 / 输出 / 颜色 / 转换器 / 畸变 / 图案 / 纹理 |
-| 几何 GeometryNodeTree | 346 | 属性 / 颜色 / 曲线 / 蜡笔 / 几何数据 / 输入 / 实例 / 网格 / 输出 / 点 / 模拟 / 实用工具 / 纹理 / 体积 |
+| 节点树 | 官方菜单条目 | 别名条数 | 顶层分类 |
+| --- | --- | --- | --- |
+| 着色器 ShaderNodeTree | 99 | 104（含 2 个区域） | 输入 / 输出 / 着色器 / 颜色 / 纹理 / 实用工具 / 置换 / 布局 / 组 |
+| 合成 CompositorNodeTree | 164 | 167 | 输入 / 输出 / 颜色 / 滤镜 / 抠像 / 遮罩 / 追踪 / 变换 / 纹理 / 实用工具 / 创意 / 布局 / 组 |
+| 纹理 TextureNodeTree | 33 | 36 | 输入 / 输出 / 颜色 / 转换器 / 畸变 / 图案 / 纹理 / 布局 / 组 |
+| 几何 GeometryNodeTree | 346 | 354（含 4 个区域 + 类型化捆包） | 属性 / 颜色 / 曲线 / 蜡笔 / 几何数据 / 输入 / 实例 / 网格 / 输出 / 点 / 模拟 / 实用工具 / 纹理 / 体积 / 布局 / 组 |
+
+> 除了官方菜单里用 `node.add_node` 画出的条目，别名表还补上了这些**不走该算子**的条目：
+> 区域（模拟 `Simulation` / 遍历元素 `For Each Element` / 重复 `Repeat` / 闭包 `Closure`）、
+> 类型化捆包 `Typed Bundle`、新建组 `New Group`、框 `Frame`、转接点 `Reroute`、
+> 组输入/组输出 `Group Input/Output`（仅编辑节点组时出现，和官方一致）。
+> 例如几何节点里搜 `区域`、`zone`、`模拟`、`for each`、`框`、`frame`、`转接` 都能命中。
 
 （节点编辑器按当前节点树类型自动只显示对应的一套分类。）
+
+### 遗漏检查
+
+`tools/audit_coverage.py` 会把别名表与 Blender 官方菜单**逐条对照**，报告缺失或已过期的条目
+（发现缺失时以非零状态退出，方便定期跑一次）：
+
+```bash
+python tools/extract_add_menu.py     # 3D 视图菜单 → add_menu_tree.json
+python tools/extract_node_menu.py    # 节点菜单 → node_menu_tree.json
+python tools/audit_coverage.py
+```
+
+当前对照结果（Blender 5.2.2）：3D 视图 53 条显式条目 **全部覆盖**、5 个枚举型算子的条数与枚举项数一致；
+4 种节点树 642 条 `node_operator` **无缺失**；区域/类型化捆包/框/转接/组输入输出 **全部覆盖**。
 
 ### 一键切换界面语言
 

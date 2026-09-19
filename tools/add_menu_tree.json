@@ -5,6 +5,15 @@
    "file": "space_view3d.py",
    "entries": [
     {
+     "kind": "op",
+     "op": "WM_OT_search_single_menu",
+     "text": "Search...",
+     "icon": "VIEWZOOM",
+     "assign": {
+      "menu_idname": "VIEW3D_MT_add"
+     }
+    },
+    {
      "kind": "menu",
      "menu": "VIEW3D_MT_mesh_add",
      "text": null,
@@ -112,6 +121,19 @@
      "prop": "type",
      "text": "Force Field",
      "icon": "OUTLINER_OB_FORCE_FIELD"
+    },
+    {
+     "kind": "op",
+     "op": "object.collection_instance_add",
+     "text": "'Collection Instance...' if has_collections else 'No Collections to Instance'",
+     "icon": "OUTLINER_OB_GROUP_INSTANCE"
+    },
+    {
+     "kind": "enum_menu",
+     "op": "object.collection_instance_add",
+     "prop": "collection",
+     "text": "Collection Instance",
+     "icon": "OUTLINER_OB_GROUP_INSTANCE"
     }
    ]
   },
@@ -282,8 +304,11 @@
    "file": "space_view3d.py",
    "entries": [
     {
-     "kind": "ignore",
-     "detail": "layout.operator_enum"
+     "kind": "enum_menu",
+     "op": "object.metaball_add",
+     "prop": "type",
+     "text": null,
+     "icon": null
     }
    ]
   },
@@ -308,7 +333,62 @@
   "VIEW3D_MT_grease_pencil_add": {
    "class": "VIEW3D_MT_grease_pencil_add",
    "file": "space_view3d.py",
-   "entries": []
+   "entries": [
+    {
+     "kind": "op",
+     "op": "object.grease_pencil_add",
+     "text": "Blank",
+     "icon": "EMPTY_AXIS",
+     "assign": {
+      "type": "EMPTY"
+     }
+    },
+    {
+     "kind": "op",
+     "op": "object.grease_pencil_add",
+     "text": "Stroke",
+     "icon": "STROKE",
+     "assign": {
+      "type": "STROKE"
+     }
+    },
+    {
+     "kind": "op",
+     "op": "object.grease_pencil_add",
+     "text": "Monkey",
+     "icon": "MONKEY",
+     "assign": {
+      "type": "MONKEY"
+     }
+    },
+    {
+     "kind": "op",
+     "op": "object.grease_pencil_add",
+     "text": "Scene Line Art",
+     "icon": "SCENE_DATA",
+     "assign": {
+      "type": "LINEART_SCENE"
+     }
+    },
+    {
+     "kind": "op",
+     "op": "object.grease_pencil_add",
+     "text": "Collection Line Art",
+     "icon": "OUTLINER_COLLECTION",
+     "assign": {
+      "type": "LINEART_COLLECTION"
+     }
+    },
+    {
+     "kind": "op",
+     "op": "object.grease_pencil_add",
+     "text": "Object Line Art",
+     "icon": "OBJECT_DATA",
+     "assign": {
+      "type": "LINEART_OBJECT"
+     }
+    }
+   ]
   },
   "VIEW3D_MT_armature_add": {
    "class": "VIEW3D_MT_armature_add",
@@ -328,6 +408,15 @@
    "entries": [
     {
      "kind": "op",
+     "op": "object.add",
+     "text": "Lattice",
+     "icon": "OUTLINER_OB_LATTICE",
+     "assign": {
+      "type": "LATTICE"
+     }
+    },
+    {
+     "kind": "op",
      "op": "object.lattice_add_to_selected",
      "text": "Lattice Deform Selected",
      "icon": "OUTLINER_OB_LATTICE"
@@ -337,7 +426,71 @@
   "VIEW3D_MT_empty_add": {
    "class": "VIEW3D_MT_empty_add",
    "file": "space_view3d.py",
-   "entries": []
+   "entries": [
+    {
+     "kind": "op",
+     "op": "object.empty_add",
+     "text": "Plain Axes",
+     "icon": "EMPTY_AXIS",
+     "assign": {
+      "type": "PLAIN_AXES"
+     }
+    },
+    {
+     "kind": "op",
+     "op": "object.empty_add",
+     "text": "Arrows",
+     "icon": "EMPTY_ARROWS",
+     "assign": {
+      "type": "ARROWS"
+     }
+    },
+    {
+     "kind": "op",
+     "op": "object.empty_add",
+     "text": "Single Arrow",
+     "icon": "EMPTY_SINGLE_ARROW",
+     "assign": {
+      "type": "SINGLE_ARROW"
+     }
+    },
+    {
+     "kind": "op",
+     "op": "object.empty_add",
+     "text": "Circle",
+     "icon": "MESH_CIRCLE",
+     "assign": {
+      "type": "CIRCLE"
+     }
+    },
+    {
+     "kind": "op",
+     "op": "object.empty_add",
+     "text": "Cube",
+     "icon": "CUBE",
+     "assign": {
+      "type": "CUBE"
+     }
+    },
+    {
+     "kind": "op",
+     "op": "object.empty_add",
+     "text": "Sphere",
+     "icon": "SPHERE",
+     "assign": {
+      "type": "SPHERE"
+     }
+    },
+    {
+     "kind": "op",
+     "op": "object.empty_add",
+     "text": "Cone",
+     "icon": "CONE",
+     "assign": {
+      "type": "CONE"
+     }
+    }
+   ]
   },
   "VIEW3D_MT_image_add": {
    "class": "VIEW3D_MT_image_add",
@@ -345,9 +498,36 @@
    "entries": [
     {
      "kind": "op",
+     "op": "object.empty_image_add",
+     "text": "Reference...",
+     "icon": "IMAGE_REFERENCE",
+     "assign": {
+      "background": false
+     }
+    },
+    {
+     "kind": "op",
+     "op": "object.empty_image_add",
+     "text": "Background...",
+     "icon": "IMAGE_BACKGROUND",
+     "assign": {
+      "background": true
+     }
+    },
+    {
+     "kind": "op",
      "op": "image.import_as_mesh_planes",
      "text": "Mesh Plane...",
      "icon": "MESH_PLANE"
+    },
+    {
+     "kind": "op",
+     "op": "object.empty_add",
+     "text": "Empty Image",
+     "icon": "FILE_IMAGE",
+     "assign": {
+      "type": "IMAGE"
+     }
     }
    ]
   },
@@ -356,8 +536,11 @@
    "file": "space_view3d.py",
    "entries": [
     {
-     "kind": "ignore",
-     "detail": "layout.operator_enum"
+     "kind": "enum_menu",
+     "op": "object.light_add",
+     "prop": "type",
+     "text": null,
+     "icon": null
     }
    ]
   },
@@ -366,8 +549,11 @@
    "file": "space_view3d.py",
    "entries": [
     {
-     "kind": "ignore",
-     "detail": "layout.operator_enum"
+     "kind": "enum_menu",
+     "op": "object.lightprobe_add",
+     "prop": "type",
+     "text": null,
+     "icon": null
     }
    ]
   },

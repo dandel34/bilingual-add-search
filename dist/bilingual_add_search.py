@@ -16,7 +16,7 @@ Shift+A 打开「添加」菜单后，搜索框里输入中文或英文都能找
 bl_info = {
     "name": "Bilingual Add Search (中英双语添加搜索)",
     "author": "DSH",
-    "version": (1, 2, 0),
+    "version": (1, 3, 0),
     "blender": (3, 0, 0),
     "location": ("3D 视图 → 添加菜单 (Shift+A) / 着色器·合成·几何·纹理节点编辑器 → 添加菜单 (Shift+A)"
                  " / 偏好设置 → 插件"),
@@ -1010,6 +1010,75 @@ NODE_CATEGORY_ZH = {
     "Linked": "已链接",
 }
 
+# ---------------------------------------------------------------------------
+# 手工补充的节点别名
+#
+# 官方节点菜单里有些条目不是用 node.add_node 画的，自动生成的 NODE_ALIAS_GROUPS
+# 抓不到，必须在这里补齐（tools/audit_coverage.py 会检查有没有漏）：
+#
+#   * node.add_zone        —— 区域：模拟 / 遍历元素 / 重复 / 闭包
+#   * node.add_typed_bundle—— 类型化捆包
+#   * node.add_empty_group —— 新建组
+#   * Layout / Group 共享菜单 —— 框、转接点、组输入、组输出
+#
+# 结构: (适用节点树, 分类路径, 英文标签, 算子, 节点类型或 None, 属性或 None, 显示条件或 None)
+# 适用节点树的 "*" 表示四种节点树全部适用（纯字面量，便于 tools/audit_coverage.py 解析）
+# ---------------------------------------------------------------------------
+
+NODE_EXTRA_ALIASES = (
+    # —— 布局（四种节点树都有）
+    ("*", "Layout", "Frame", "node.add_node", "NodeFrame", None, None),
+    ("*", "Layout", "Reroute", "node.add_node", "NodeReroute", None, None),
+    # —— 组
+    ("*", "Group", "New Group", "node.add_empty_group", None, None, None),
+    # 组输入/输出只在「正在编辑节点组」时出现。几何/合成树自带 Input/Group、Output
+    # 分类（已在 NODE_ALIAS_GROUPS 里），这里只补着色器/纹理树，避免重复条目。
+    (("ShaderNodeTree", "TextureNodeTree"), "Group", "Group Input",
+     "node.add_node", "NodeGroupInput", None, "is_group"),
+    (("ShaderNodeTree", "TextureNodeTree"), "Group", "Group Output",
+     "node.add_node", "NodeGroupOutput", None, "is_group"),
+    # —— 几何节点：区域（模拟 / 遍历元素 / 重复 / 闭包）+ 类型化捆包
+    (("GeometryNodeTree",), "Simulation", "Simulation", "node.add_zone", None, {
+        "input_node_type": "GeometryNodeSimulationInput",
+        "output_node_type": "GeometryNodeSimulationOutput",
+        "add_default_geometry_link": True,
+    }, None),
+    (("GeometryNodeTree",), "Utilities", "For Each Element", "node.add_zone", None, {
+        "input_node_type": "GeometryNodeForeachGeometryElementInput",
+        "output_node_type": "GeometryNodeForeachGeometryElementOutput",
+        "add_default_geometry_link": False,
+    }, None),
+    (("GeometryNodeTree",), "Utilities", "Repeat", "node.add_zone", None, {
+        "input_node_type": "GeometryNodeRepeatInput",
+        "output_node_type": "GeometryNodeRepeatOutput",
+        "add_default_geometry_link": True,
+    }, None),
+    (("GeometryNodeTree",), "Utilities/Closure", "Closure", "node.add_zone", None, {
+        "input_node_type": "NodeClosureInput",
+        "output_node_type": "NodeClosureOutput",
+        "add_default_geometry_link": False,
+    }, None),
+    (("GeometryNodeTree",), "Utilities/Bundle", "Typed Bundle", "node.add_typed_bundle",
+     None, None, None),
+    # —— 着色器节点：区域（重复 / 闭包）
+    (("ShaderNodeTree",), "Utilities", "Repeat", "node.add_zone", None, {
+        "input_node_type": "GeometryNodeRepeatInput",
+        "output_node_type": "GeometryNodeRepeatOutput",
+        "add_default_geometry_link": True,
+    }, None),
+    (("ShaderNodeTree",), "Utilities", "Closure", "node.add_zone", None, {
+        "input_node_type": "NodeClosureInput",
+        "output_node_type": "NodeClosureOutput",
+        "add_default_geometry_link": False,
+    }, None),
+)
+
+# 补充条目的中文名（没有节点类型的那些；其余查 Blender 自带词条）
+NODE_EXTRA_ZH = {
+    "For Each Element": "遍历元素",
+    "Typed Bundle": "类型化捆包",
+}
+
 
 # ---------------------------------------------------------------------------
 # 工具函数
@@ -1229,26 +1298,93 @@ def _catalog_lookup(message, context=None):
     return ""
 
 
+def _cache_node_label(idname, override):
+    """把一个节点类型的（中文, 英文）标签写进缓存。"""
+    key = (idname, override)
+    if key in _node_label_cache:
+        return
+    rna = bpy.types.Node.bl_rna_get_subclass(idname)
+    if rna is None:
+        return
+    translation_context = getattr(rna, "translation_context", None)
+    english = override or rna.name
+    chinese = _catalog_lookup(english, translation_context)
+    if not chinese:
+        chinese = _catalog_lookup(rna.name, translation_context)
+    _node_label_cache[key] = (chinese, english)
+
+
 def _node_labels():
-    """节点标签缓存: (节点 ID, 标签覆盖) -> (中文, 英文)。"""
+    """标签缓存: (节点类型或 None, 标签) -> (中文, 英文)。"""
     if _node_label_cache:
         return _node_label_cache
     for groups in NODE_ALIAS_GROUPS.values():
         for _path, items in groups:
             for idname, override in items:
-                key = (idname, override)
-                if key in _node_label_cache:
-                    continue
-                rna = bpy.types.Node.bl_rna_get_subclass(idname)
-                if rna is None:
-                    continue
-                translation_context = getattr(rna, "translation_context", None)
-                english = override or rna.name
-                chinese = _catalog_lookup(english, translation_context)
-                if not chinese and override:
-                    chinese = _catalog_lookup(rna.name, translation_context)
-                _node_label_cache[key] = (chinese, english)
+                _cache_node_label(idname, override)
+    for _trees, _path, english, _operator, node_type, _props, _condition in NODE_EXTRA_ALIASES:
+        if node_type:
+            _cache_node_label(node_type, english)
+        else:
+            chinese = NODE_EXTRA_ZH.get(english) or _catalog_lookup(english)
+            _node_label_cache[(None, english)] = (chinese, english)
     return _node_label_cache
+
+
+def _condition_ok(condition, context):
+    """补充条目的显示条件（与官方菜单一致）。"""
+    if not condition:
+        return True
+    if condition == "is_group":
+        # 官方 Group 菜单只在「正在编辑节点组」时才给组输入/输出
+        tree = getattr(getattr(context, "space_data", None), "edit_tree", None)
+        if tree is None:
+            return False
+        try:
+            return tree in list(bpy.data.node_groups)
+        except Exception:
+            return False
+    return True
+
+
+def _normalize_node_item(item):
+    """统一成 (算子, 节点类型, 标签, 属性, 条件) 五元组。
+
+    自动生成的表是 (节点类型, 标签覆盖)，补充表已经是五元组。
+    """
+    if len(item) == 2:
+        idname, override = item
+        return (NODE_ADD_OPERATOR_IDNAME, idname, override, None, None)
+    return tuple(item)
+
+
+def _validate_node_extra(entry):
+    """校验补充条目：算子、属性、涉及的节点类型是否都还存在。"""
+    _trees, _path, english, operator_id, node_type, props, _condition = entry
+    try:
+        module_name, op_name = operator_id.split(".", 1)
+        rna = getattr(getattr(bpy.ops, module_name), op_name).get_rna_type()
+    except Exception:
+        return "算子不存在 (%s)" % operator_id
+    if node_type and bpy.types.Node.bl_rna_get_subclass(node_type) is None:
+        return "节点类型不存在 (%s)" % node_type
+    for key, value in (props or {}).items():
+        try:
+            prop = rna.properties[key]
+        except Exception:
+            return "%s 没有属性 %r" % (operator_id, key)
+        if prop.type == 'BOOLEAN' and not isinstance(value, bool):
+            return "%s.%s 需要布尔值" % (operator_id, key)
+        if prop.type == 'ENUM':
+            identifiers = {item.identifier for item in prop.enum_items}
+            if value not in identifiers:
+                return "%s.%s 的 %r 不在 %s" % (operator_id, key, value, sorted(identifiers))
+        if key in ("input_node_type", "output_node_type") and value:
+            if bpy.types.Node.bl_rna_get_subclass(value) is None:
+                return "%s 指向的节点类型不存在 (%s)" % (key, value)
+    if not english:
+        return "缺少英文标签"
+    return None
 
 
 def _category_label(components):
@@ -1258,23 +1394,38 @@ def _category_label(components):
 
 
 def _make_node_menu_class(index, components, items, children):
-    def draw(self, _context):
+    def draw(self, context):
         layout = self.layout
         layout.operator_context = 'INVOKE_REGION_WIN'
         labels = _node_labels()
-        for idname, override in items:
-            chinese, english = labels.get((idname, override), ("", override or idname))
+        for operator_id, node_type, override, extra_props, condition in items:
+            if not _condition_ok(condition, context):
+                continue
+            key = (node_type, override) if node_type else (None, override)
+            chinese, english = labels.get(key, ("", override or node_type or operator_id))
             try:
-                props = layout.operator(
-                    NODE_ADD_OPERATOR_IDNAME,
+                button = layout.operator(
+                    operator_id,
                     text=_bilingual_label(chinese, english),
                     icon='NODE',
                 )
-                props.type = idname
-                if hasattr(props, "use_transform"):
-                    props.use_transform = True
             except Exception:
                 continue
+            if node_type:
+                try:
+                    button.type = node_type
+                except Exception:
+                    pass
+            for name, value in (extra_props or {}).items():
+                try:
+                    setattr(button, name, value)
+                except Exception:
+                    pass
+            if hasattr(button, "use_transform"):
+                try:
+                    button.use_transform = True
+                except Exception:
+                    pass
         if children:
             layout.separator()
             for child in children:
@@ -1289,13 +1440,18 @@ def _make_node_menu_class(index, components, items, children):
             "bl_options": {'SEARCH_ON_KEY_PRESS'},
             "alias_components": components,
             "alias_children": tuple(children),
+            "alias_items": tuple(items),
             "draw": draw,
         },
     )
 
 
 def _build_node_menus():
-    """按树类型生成分类菜单类；返回 (根菜单表, 菜单类, 失效节点列表)。"""
+    """按树类型生成分类菜单类；返回 (根菜单表, 菜单类, 失效条目列表)。
+
+    条目来自两处：自动生成的 NODE_ALIAS_GROUPS（node.add_node）与手工维护的
+    NODE_EXTRA_ALIASES（区域 / 类型化捆包 / 新建组 / 框 / 转接点 / 组输入输出）。
+    """
     roots = {}
     classes = []
     dropped = []
@@ -1312,6 +1468,19 @@ def _build_node_menus():
         classes.append(cls)
         return cls
 
+    # 手工补充条目：校验后按树/分类挂进同一棵菜单树（"*" 代表四种节点树）
+    extras_by_tree = {}
+    for entry in NODE_EXTRA_ALIASES:
+        trees, path, english, operator_id, node_type, props, condition = entry
+        reason = _validate_node_extra(entry)
+        if reason:
+            dropped.append("%s (%s): %s" % (english, operator_id, reason))
+            continue
+        item = (operator_id, node_type, english, props, condition)
+        for tree_type in (NODE_ALIAS_GROUPS if trees == "*" else trees):
+            # 包装成 (分类路径, (条目,)) 以与自动生成表的结构一致
+            extras_by_tree.setdefault(tree_type, []).append((path, (item,)))
+
     for tree_type, groups in NODE_ALIAS_GROUPS.items():
         validated = []
         for path, items in groups:
@@ -1320,9 +1489,10 @@ def _build_node_menus():
                 if bpy.types.Node.bl_rna_get_subclass(idname) is None:
                     dropped.append(idname)
                 else:
-                    kept.append((idname, override))
+                    kept.append(_normalize_node_item((idname, override)))
             if kept:
                 validated.append((path, tuple(kept)))
+        validated.extend(extras_by_tree.get(tree_type, ()))
 
         tree = {"items": [], "children": {}}
         for path, items in validated:

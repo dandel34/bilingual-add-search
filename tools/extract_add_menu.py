@@ -60,34 +60,39 @@ def call_name(func):
     return ast.unparse(func)
 
 
-def parse_entry(stmt):
-    """Return a dict for one menu-drawing statement, or None."""
-    # layout.operator("id", text=..., icon=...) possibly with `.type = 'X'`
-    if isinstance(stmt, ast.Assign) and isinstance(stmt.value, ast.Call):
-        call = stmt.value
-        target = ast.unparse(stmt.targets[0])
-        if target.endswith(".type") or target.endswith(".props"):
-            outer = call.func.value if isinstance(call.func, ast.Call) else None
-            if outer is None:
-                return None
-            entry = parse_entry(outer)
-            if entry is None:
-                return None
-            key = target.rsplit(".", 1)[-1]
-            val = stmt.value.args[0] if stmt.value.args else None
-            value = ast.literal_eval(stmt.value.args[0]) if stmt.value.args else ast.unparse(
-                stmt.value.keywords[0].value
-            )
-            entry.setdefault("props", {})
-            entry["props"]["__setattr__"] = value
-            entry["attr"] = key
-            return entry
-    if not isinstance(stmt, ast.Expr) or not isinstance(stmt.value, ast.Call):
+def call_receiver(call):
+    """返回 ``xxx.yyy(...)`` 里的接收者名字（``xxx``），否则 None。"""
+    func = call.func
+    if isinstance(func, ast.Attribute) and isinstance(func.value, ast.Name):
+        return func.value.id
+    return None
+
+
+def layout_derived_names(draw_func):
+    """收集由 ``layout`` 派生的局部变量名（layout / col / row / sub …）。
+
+    菜单里不少条目画在 ``col = layout.column()`` 这类变量上，只认 ``layout.``
+    会漏掉它们（例如「集合实例」）。
+    """
+    names = {"layout"}
+    changed = True
+    while changed:
+        changed = False
+        for stmt in ast.walk(draw_func):
+            if isinstance(stmt, ast.Assign) and len(stmt.targets) == 1:
+                target = stmt.targets[0]
+                if (isinstance(target, ast.Name) and isinstance(stmt.value, ast.Call)
+                        and call_receiver(stmt.value) in names and target.id not in names):
+                    names.add(target.id)
+                    changed = True
+    return names
+
+
+def parse_call(call, layout_names=("layout",)):
+    """把一个 ``layout.xxx(...)`` 调用解析成条目 dict，否则返回 None。"""
+    if call_receiver(call) not in layout_names:
         return None
-    call = stmt.value
     fname = call_name(call)
-    if not fname.startswith("layout."):
-        return None
     kind = fname.split(".")[-1]
     kw = {}
     for k in call.keywords:
@@ -109,25 +114,49 @@ def parse_entry(stmt):
             "text": kw.get("text"),
             "icon": kw.get("icon"),
         }
+    if kind == "operator_enum":
+        # 每个枚举项都会画一个按钮（光照/融球/探针子菜单就是这种）
+        op = ast.literal_eval(call.args[0]) if call.args else None
+        prop = ast.literal_eval(call.args[1]) if len(call.args) > 1 else None
+        return {"kind": "enum_menu", "op": op, "prop": prop,
+                "text": kw.get("text"), "icon": kw.get("icon")}
     if kind == "menu":
         menu = ast.literal_eval(call.args[0]) if call.args else None
         return {"kind": "menu", "menu": menu, "text": kw.get("text"), "icon": kw.get("icon")}
-    if kind == "menu_enum" or kind == "operator_enum":
-        return {"kind": "ignore", "detail": fname}
     return None
 
 
-def walk_body(body):
+def parse_entry(stmt, layout_names=("layout",)):
+    """Return a dict for one menu-drawing statement, or None."""
+    # 形式 1: layout.operator("id", text=..., icon=...).type = 'X'
+    if isinstance(stmt, ast.Assign) and isinstance(stmt.targets[0], ast.Attribute):
+        target = stmt.targets[0]
+        if isinstance(target.value, ast.Call):
+            entry = parse_call(target.value, layout_names)
+            if entry is not None:
+                try:
+                    value = ast.literal_eval(stmt.value)
+                except (ValueError, SyntaxError):
+                    value = ast.unparse(stmt.value)
+                entry.setdefault("assign", {})[target.attr] = value
+            return entry
+    # 形式 2: layout.xxx(...)
+    if isinstance(stmt, ast.Expr) and isinstance(stmt.value, ast.Call):
+        return parse_call(stmt.value, layout_names)
+    return None
+
+
+def walk_body(body, layout_names=("layout",)):
     out = []
     for stmt in body:
-        entry = parse_entry(stmt)
+        entry = parse_entry(stmt, layout_names)
         if entry is not None:
             out.append(entry)
             continue
         for field in ("body", "orelse", "finalbody"):
             sub = getattr(stmt, field, None)
             if sub:
-                out.extend(walk_body(sub))
+                out.extend(walk_body(sub, layout_names))
     return out
 
 
@@ -141,7 +170,7 @@ def main():
             return
         seen.add(idname)
         cls_name, draw, path = menus[idname]
-        entries = walk_body(draw.body)
+        entries = walk_body(draw.body, layout_derived_names(draw))
         result[idname] = {"class": cls_name, "file": pathlib.Path(path).name, "entries": entries}
         for e in entries:
             if e["kind"] == "menu" and e.get("menu"):

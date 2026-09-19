@@ -19,21 +19,33 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: 打包扩展 zip（版本号取自插件 bl_info）
+      - name: 确定版本 tag（打 tag 触发用 tag 名，手动触发用 manifest 版本）
+        id: ver
+        run: |
+          if [ "${GITHUB_REF_TYPE}" = "tag" ]; then
+            echo "tag=${GITHUB_REF_NAME}" >> "$GITHUB_OUTPUT"
+          else
+            VERSION="$(python -c "import tomllib,pathlib;print(tomllib.loads(pathlib.Path('blender_manifest.toml').read_text(encoding='utf-8'))['version'])")"
+            echo "tag=v${VERSION}" >> "$GITHUB_OUTPUT"
+          fi
+          echo "将发布: $(cat "$GITHUB_OUTPUT" | tail -1)"
+
+      - name: 打包扩展 zip 与旧版单文件
         run: python tools/build_extension.py
 
-      - name: 校验安装包
+      - name: 校验产物
         run: python tools/check_package.py
 
-      - name: 创建/更新 Release 并附上 zip
+      - name: 创建/更新 Release 并附上产物
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          TAG="${GITHUB_REF_NAME}"
+          TAG="${{ steps.ver.outputs.tag }}"
           if gh release view "$TAG" >/dev/null 2>&1; then
-            gh release upload "$TAG" dist/*.zip --clobber
+            # 已存在（例如手动重跑刷新产物）→ 覆盖附件
+            gh release upload "$TAG" dist/* --clobber
           else
-            gh release create "$TAG" dist/*.zip \
+            gh release create "$TAG" dist/* \
               --title "Bilingual Add Search ${TAG}" \
               --generate-notes
           fi
